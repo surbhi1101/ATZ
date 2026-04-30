@@ -1,0 +1,168 @@
+@layer components {
+  /* ─── NAV LAYOUT ─────────────────────────────────────────── */
+  .nav-wrapper {
+    @apply fixed top-0 left-0 w-full z-[100];
+    background: transparent;
+    transition: background 0.4s ease;
+  }
+
+  .nav-wrapper.scrolled {
+    background: rgba(26, 31, 30, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .nav-inner {
+    @apply flex items-center justify-between px-6 py-[23px] lg:px-[60px] xl:px-[64px] xl:py-[24px];
+  }
+
+  /* ─── HERO LAYOUT ──────── */
+  .hero-section {
+    @apply relative w-full overflow-hidden min-h-[850px] xl:min-h-[900px];
+    height: 100svh;
+  }
+
+  .hero-bg {
+    @apply absolute inset-0;
+  }
+
+  .hero-img {
+    @apply w-full h-full object-cover;
+    object-position: center 30%;
+  }
+
+  .hero-overlay {
+    @apply absolute inset-0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.08) 40%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+  }
+
+  .hero-content {
+    @apply relative z-[2] h-full flex flex-col items-center justify-end text-center px-6 pb-[84px] xl:pb-[66px] gap-[24px] xl:gap-[43px];
+  }
+
+  @media (width >= 768px) {
+    .hero-content {
+      padding-bottom: 60px;
+    }
+  }
+
+  @media (width >= 1152px) {
+    .hero-content {
+      padding-bottom: 66px;
+    }
+  }
+
+  @media (width >= 1920px) {
+    .hero-content {
+      padding-bottom: 100px;
+    }
+  }
+
+  /* ─── STORY LAYOUT ────────────────────────────────────────── */
+  .story-section {
+    @apply relative w-full flex items-center justify-center bg-[#262633];
+  }
+
+  .story-inner {
+    @apply w-full flex flex-col items-center justify-center text-center
+           gap-9 md:gap-11 lg:gap-[52px] xl:max-w-[1000px] 2xl:max-w-[1200px] px-[25px] 
+           
+           pt-[105px] pb-[108px] xl:py-[112px];
+    max-width: 900px;
+  }
+
+  /* ─── LODGES SECTION LAYOUT ──────────────────────────────── */
+
+  .lodges-section {
+    @apply w-full bg-white;
+  }
+
+  .lodges-inner {
+    @apply w-full pl-6 pt-[92px] pb-[110px]
+lg:pl-[60px] lg:pt-30 flex flex-col gap-[41px]
+xl:pl-[65px] xl:pt-[127px] xl:pb-14
+2xl:pl-[120px] 2xl:pt-24 2xl:pb-16;
+  }
+  .lodges-header {
+    @apply flex items-center justify-between;
+  }
+  .lodges-slider-wrap {
+    @apply relative w-full;
+  }
+  .lodges-track {
+    @apply flex gap-6;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  .lodges-prev-wrap,
+  .lodges-next-wrap {
+    @apply absolute top-0 z-10 flex items-center justify-center;
+    height: 65%;
+  }
+
+  .lodges-prev-wrap {
+    @apply left-0;
+  }
+
+  .lodges-next-wrap {
+    @apply right-[78px];
+  }
+
+  .lodges-counter {
+    @apply flex justify-end mt-5 md:mt-6;
+  }
+
+  .lodges-counter-inner {
+    @apply flex items-center;
+  }
+  /* ════════════════════════════════════════
+     JOURNEYS SECTION LAYOUT
+  ════════════════════════════════════════ */
+
+  .journeys-inner {
+    @apply w-full mx-auto flex flex-col;
+    @apply px-6 py-12;
+    @apply md:px-12 md:py-16;
+    @apply lg:items-start lg:gap-10 lg:px-14 lg:py-16;
+    @apply xl:gap-14 xl:px-[72px] xl:py-[80px];
+    @apply 2xl:px-[100px] 2xl:py-[96px] 2xl:gap-16;
+    max-width: 1920px;
+  }
+
+  .journeys-left {
+    @apply w-full lg:w-[300px] xl:w-[340px] 2xl:w-[400px] shrink-0;
+  }
+
+  .journeys-right {
+    @apply flex-1 min-w-0;
+  }
+
+  /* ════════════════════════════════════════
+     TRAVEL TYPES LAYOUT
+  ════════════════════════════════════════ */
+
+  .travel-inner {
+    @apply w-full mx-auto overflow-hidden;
+    /* padding: top/bottom | left/right — matches Journeys section */
+    @apply px-6 pt-12 pb-16;
+    @apply md:px-12 md:pt-16 md:pb-20;
+    @apply lg:px-14 lg:pt-16 lg:pb-20;
+    @apply xl:px-[72px] xl:pt-[72px] xl:pb-[88px];
+    @apply 2xl:px-[100px] 2xl:pt-[88px] 2xl:pb-[100px];
+    max-width: 1920px;
+  }
+  /* ─── IMPACT SECTION ── */
+  .impact-section {
+    @apply w-full flex justify-center;
+  }
+
+  .impact-container {
+    @apply relative w-full max-w-[1920px] overflow-hidden
+           min-h-[304px] md:min-h-[350px] lg:min-h-[600px] xl:min-h-[718px];
+  }
+}

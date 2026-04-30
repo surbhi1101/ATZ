@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATZ Collections</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="./dist/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav class="nav-wrapper">
+        <div class="nav-inner">
+            <div class="nav-logo">
+                <img src="./assets/images/logo.png" alt="logo">
+            </div>
+
+            <div class="nav-links">
+                <div class="nav-link-item">
+                    <a href="#">Lodges &amp; Hotels</a>
+                    <img src="./assets/images/dropdown.png" alt="dropdown">
+                </div>
+                <div class="nav-link-item">
+                    <a href="#">Residences</a>
+                </div>
+                <div class="nav-link-item">
+                    <a href="#">Journeys</a>
+                </div>
+                <div class="nav-link-item nav-menu-icon">
+                    <img src="./assets/images/submenu.png" alt="submenu">
+                    <a href="#">Menu</a>
+                </div>
+            </div>
+
+            <div class="nav-cta">
+                <button class="btn-plan">Plan My Trip</button>
+            </div>
+            <div class="left-side-nav  mobile-btn">
+            <div class="nav-hamburger" id="hamburgerBtn">
+                <img src="./assets/images/submenu.png" alt="submenu">
+            </div>
+            <button class="btn-plan">Plan My Trip</button>
+        </div></div>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-inner">
+                <a href="#">Lodges &amp; Hotels</a>
+                <a href="#">Residences</a>
+                <a href="#">Journeys</a>
+            </div>
+
+            
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- HERO SECTION -->
+        <header class="hero-section">
+            <div class="hero-bg">
+            <img src="./assets/images/mobile-hero.png" alt="Leopard resting on tree" class="hero-img-mobile" />
+            
+            <!-- Tablet/Desktop Image (768+) -->
+            <img src="./assets/images/hero-section.jpg" alt="Leopard resting on tree" class="hero-img-laptop" />
+                <div class="hero-overlay"></div>
+            </div>
+
+            <div class="hero-content">
+                <div class="hero-heading-wrap">
+                    <h1 class="hero-heading">
+                        Elevated Experiences Rooted in Family and Wilderness
+                    </h1>
+                </div>
+                <div class="hero-watch">
+                    <a href="#" class="watch-link">
+                        <div class="watch-icon">
+                           <img src="./assets/images/play_circle.png" alt="play-button">
+                        </div>
+                        <span>Watch Full Video</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- STORY SECTION -->
+        <section class="story-section" id="storySection">
+            <div class="story-inner">
+                <div class="story-text-wrap">
+                   <p>Born from a family's love for Africa and a legacy of warm hospitality, ATZ Collection began with a single lodge and grew
+                into a collection of extraordinary experiences across Southern Africa.</p>
+                </div>
+
+                <div class="story-cta">
+                    <button class="btn-story">Our Story</button>
+                </div>
+            </div>
+        </section>
+<!-- ─── LODGES SECTION-->
+<section class="lodges-section" id="lodgesSection">
+    <div class="lodges-inner">
+        <div class="lodges-header">
+            <div class="lodges-title-wrap">
+                <h2>Our Lodges and Hotels</h2>
+            </div>
+            <div class="lodges-view-toggle">
+                <div class="view-btn active" id="listViewBtn">
+                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none">
+                        <rect y="0" width="16" height="2" fill="currentColor" />
+                        <rect y="6" width="16" height="2" fill="currentColor" />
+                        <rect y="12" width="16" height="2" fill="currentColor" />
+                    </svg>
+                    <span>List View</span>
+                </div>
+                <div class="view-btn" id="mapViewBtn">
+               <img src="./assets/images/mobile-map.png" alt="map">
+                    <span>Map View</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider wrapper — clips overflow -->
+        <div class="lodges-slider-wrap">
+
+            <!-- Scrollable track -->
+            <div class="lodges-track" id="lodgesTrack">
+
+                <!-- Card 1 -->
+                <div class="lodge-card">
+                    <div class="lodge-card-img">
+                        <img src="./assets/images/lodges1.jpg"
+                            alt="Ivory Lodge" />
+                    </div>
+                    <div class="lodge-card-body">
+                        <div class="lodge-card-title">
+                        <div class="lodge-park-wrap"><span>Lion Sands Game Reserve &#8211; Sabi Sands, Kruger National
+                                Park</span></div>
+                        <div class="lodge-name-wrap">
+                            <h3>Ivory Lodge</h3>
+                        </div>
+                        </div>
+                        <div class="lodge-desc-wrap">
+                            <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation
+                                exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
+                                ut. Punctual adipisicing.</p>
+                        </div>
+                        </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="lodge-card">
+                    <div class="lodge-card-img">
+                        <img src="./assets/images/lodges2.jpg"  alt="Marataba Mountain Lodge" />
+                    </div>
+                    <div class="lodge-card-body">
+                        <div class="lodge-card-title">
+                        <div class="lodge-park-wrap"><span>Marataba Game Lodge &#8211; Marakele National Park</span>
+                        </div>
+                        <div class="lodge-name-wrap">
+                            <h3>Marataba Mountain Lodge</h3>
+                        </div>
+                        </div>  
+                        <div class="lodge-desc-wrap">
+                            <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation
+                                exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
+                                ut. Punctual adipisicing.</p>
+                        </div>
+                      </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="lodge-card">
+                    <div class="lodge-card-img">
+                        <img src="./assets/images/travel3.jpg" alt="Marataba Safari Lodge" />
+                    </div>
+                    <div class="lodge-card-body">
+                        <div class="lodge-card-title">
+                        <div class="lodge-park-wrap"><span>Marataba Safari Lodge &#8211; Marakele National Park</span>
+                        </div>
+                        <div class="lodge-name-wrap">
+                            <h3>Marataba Safari Lodge</h3>
+                        </div>
+                        </div>  
+                        <div class="lodge-desc-wrap">
+                            <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation
+                                exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
+                                ut. Punctual adipisicing.</p>
+                        </div>
+                     </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="lodge-card">
+                    <div class="lodge-card-img">
+                        <img src="./assets/images/lodges1.jpg" alt="Lion Sands River Lodge" />
+                    </div>
+                    <div class="lodge-card-body">
+                        <div class="lodge-card-title">
+                        <div class="lodge-park-wrap"><span>Lion Sands Game Reserve &#8211; Sabi Sands, Kruger National
+                                Park</span></div>
+                        <div class="lodge-name-wrap">
+                            <h3>Lion Sands River Lodge</h3>
+                        </div>
+                        </div>  
+                        <div class="lodge-desc-wrap">
+                            <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation
+                                exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
+                                ut. Punctual adipisicing.</p>
+                        </div>
+                     </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="lodge-card">
+                    <div class="lodge-card-img">
+                        <img src="./assets/images/lodges2.jpg"alt="Tinga Private Game Lodge" />
+                    </div>
+                    <div class="lodge-card-body">
+                        <div class="lodge-card-title">
+                        <div class="lodge-park-wrap"><span>Tinga Private Game Lodge &#8211; Sabi Sands, Kruger National
+                                Park</span></div>
+                        <div class="lodge-name-wrap">
+                            <h3>Tinga Private Game Lodge</h3>
+                        </div></div>
+                        <div class="lodge-desc-wrap">
+                            <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation
+                                exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
+                                ut. Punctual adipisicing.</p>
+                        </div>
+                      </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="lodge-card">
+                    <div class="lodge-card-img">
+                        <img src="./assets/images/travel3.jpg"  alt="Phinda Rock Lodge" />
+                    </div>
+                    <div class="lodge-card-body">
+                        <div class="lodge-card-title">
+                        <div class="lodge-park-wrap"><span>Phinda Private Game Reserve &#8211; KwaZulu-Natal</span>
+                        </div>
+                        <div class="lodge-name-wrap">
+                            <h3>Phinda Rock Lodge</h3>
+                        </div>
+                        </div>
+                        <div class="lodge-desc-wrap">
+                            <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation
+                                exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
+                                ut. Punctual adipisicing.</p>
+                        </div>
+                     </div>
+                </div>
+
+            </div><!-- /lodges-track -->
+
+            <!-- Prev arrow — hidden at start -->
+            <div class="lodges-prev-wrap hidden" id="lodgesPrevWrap">
+                <button class="lodges-arrow-btn" id="lodgesPrevBtn" aria-label="Previous">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                        <path d="M13 4l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Next arrow — visible at start -->
+            <div class="lodges-next-wrap" id="lodgesNextWrap">
+                <button class="lodges-arrow-btn" id="lodgesNextBtn" aria-label="Next">
+                    <img src="./assets/images/right-arrow.png" alt="right-arrow">
+                </button>
+            </div>
+
+        </div><!-- /lodges-slider-wrap -->
+
+        <!-- Counter -->
+        <div class="lodges-counter">
+            <div class="lodges-counter-inner">
+                <span class="counter-current" id="counterCurrent">01</span>
+                <span class="counter-sep">&nbsp;/&nbsp;</span>
+                <span class="counter-total">06</span>
+            </div>
+        </div>
+
+    </div><!-- /lodges-inner -->
+</section>
+<!-- JOURNEYS SECTION -->
+<section class="journeys-section fade-section" id="journeys">
+    <div class="journeys-inner">
+
+        <!-- ── Left Column: Heading + Text + CTA ── -->
+        <div class="journeys-left">
+            <div class="journeys-heading-wrap">
+                <h2>Journeys</h2>
+            </div>
+            <div class="journeys-body-wrap">
+                <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation exquisite
+                    perfect nostrud nisi intricate Content. Qui international first-class nulla ut. Punctual adipiscing.
+                </p>
+            </div>
+            <div class="journeys-cta-wrap">
+                <button class="btn-view-all">View All</button>
+            </div>
+        </div>
+
+        <!-- ── Right Column: Desktop Grid (lg+) ── -->
+        <div class="journeys-right">
+
+            <!-- Desktop Layout: 3-card grid -->
+            <div class="journeys-grid">
+
+                <!-- Featured card (left, tall) -->
+                <div class="journey-card journey-card--featured">
+                    <div class="journey-card-img-wrap">
+                        <img src="./assets/images/Journey1.jpg" />
+                    </div>
+                    <div class="journey-card-body">
+                        <div class="journey-nights-wrap">
+                            <span>6 NIGHTS</span>
+                        </div>
+                        <div class="journey-title-wrap">
+                            <h3>Exceptional Cape and Safari</h3>
+                        </div>
+                        <div class="journey-location-wrap">
+                            <span>Cape Town &amp; Monwana Game Lodge</span>
+                        </div>
+                        <div class="journey-desc-wrap">
+                            <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation
+                                exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
+                                ut. Punctual adipiscing.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right stack: 2 small cards -->
+                <div class="journeys-stack">
+                    <div class="journey-card journey-card--small">
+                        <div class="journey-card-img-wrap">
+                            <img src="./assets/images/Journey2.jpg"
+                                alt="Exceptional Safari" />
+                        </div>
+                        <div class="journey-card-body">
+                            <div class="journey-nights-wrap">
+                                <span>6 NIGHTS</span>
+                            </div>
+                            <div class="journey-title-wrap">
+                                <h3>Exceptional Safari</h3>
+                            </div>
+                            <div class="journey-location-wrap">
+                                <span>Cape Town &amp; Monwana Game Lodge</span>
+                            </div>
+                            <div class="journey-desc-wrap">
+                                <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                    conversation exquisite perfect nostrud nisi intricate Content. Qui international
+                                    first-class nulla ut. Punctual adipiscing.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="journey-card journey-card--small">
+                        <div class="journey-card-img-wrap">
+                            <img  src="./assets/images/Journey3.jpg"
+                                alt="Exceptional Safari" />
+                        </div>
+                        <div class="journey-card-body">
+                            <div class="journey-nights-wrap">
+                                <span>6 NIGHTS</span>
+                            </div>
+                            <div class="journey-title-wrap">
+                                <h3>Exceptional Safari</h3>
+                            </div>
+                            <div class="journey-location-wrap">
+                                <span>Cape Town &amp; Monwana Game Lodge</span>
+                            </div>
+                            <div class="journey-desc-wrap">
+                                <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                    conversation exquisite perfect nostrud nisi intricate Content. Qui international
+                                    first-class nulla ut. Punctual adipiscing.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Mobile/Tablet Swiper -->
+            <div class="journeys-swiper-wrap">
+                <div class="swiper journeys-swiper" id="journeysSwiper">
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide">
+                            <div class="journey-mobile-card">
+                                <div class="journey-mobile-img-wrap">
+                                    <img  src="./assets/images/Journey1.jpg"
+                                        alt="Exceptional Cape and Safari" />
+                                </div>
+                                <div class="journey-mobile-body">
+                                    <div class="journey-nights-wrap"><span>6 NIGHTS</span></div>
+                                    <div class="journey-title-wrap">
+                                        <h3>Exceptional Cape and Safari</h3>
+                                    </div>
+                                    <div class="journey-location-wrap"><span>Cape Town &amp; Monwana Game Lodge</span>
+                                    </div>
+                                    <div class="journey-desc-wrap">
+                                        <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                            conversation exquisite perfect nostrud nisi intricate Content. Qui
+                                            international first-class nulla ut. Punctual adipiscing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="journey-mobile-card">
+                                <div class="journey-mobile-img-wrap">
+                                    <img  src="./assets/images/Journey3.jpg"
+                                        alt="Exceptional Safari" />
+                                </div>
+                                <div class="journey-mobile-body">
+                                    <div class="journey-nights-wrap"><span>6 NIGHTS</span></div>
+                                    <div class="journey-title-wrap">
+                                        <h3>Exceptional Safari</h3>
+                                    </div>
+                                    <div class="journey-location-wrap"><span>Cape Town &amp; Monwana Game Lodge</span>
+                                    </div>
+                                    <div class="journey-desc-wrap">
+                                        <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                            conversation exquisite perfect nostrud nisi intricate Content. Qui
+                                            international first-class nulla ut. Punctual adipiscing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="journey-mobile-card">
+                                <div class="journey-mobile-img-wrap">
+                                    <img  src="./assets/images/Journey3.jpg"
+                                        alt="Exceptional Cuisine" />
+                                </div>
+                                <div class="journey-mobile-body">
+                                    <div class="journey-nights-wrap"><span>6 NIGHTS</span></div>
+                                    <div class="journey-title-wrap">
+                                        <h3>Exceptional Cuisine Journey</h3>
+                                    </div>
+                                    <div class="journey-location-wrap"><span>Cape Town &amp; Monwana Game Lodge</span>
+                                    </div>
+                                    <div class="journey-desc-wrap">
+                                        <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                            conversation exquisite perfect nostrud nisi intricate Content. Qui
+                                            international first-class nulla ut. Punctual adipiscing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="journey-mobile-card">
+                                <div class="journey-mobile-img-wrap">
+                                    <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800&q=80"
+                                        alt="Wilderness Lodge" />
+                                </div>
+                                <div class="journey-mobile-body">
+                                    <div class="journey-nights-wrap"><span>6 NIGHTS</span></div>
+                                    <div class="journey-title-wrap">
+                                        <h3>Wilderness Lodge Experience</h3>
+                                    </div>
+                                    <div class="journey-location-wrap"><span>Cape Town &amp; Monwana Game Lodge</span>
+                                    </div>
+                                    <div class="journey-desc-wrap">
+                                        <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                            conversation exquisite perfect nostrud nisi intricate Content. Qui
+                                            international first-class nulla ut. Punctual adipiscing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="journey-mobile-card">
+                                <div class="journey-mobile-img-wrap">
+                                    <img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=800&q=80"
+                                        alt="Conservation Journey" />
+                                </div>
+                                <div class="journey-mobile-body">
+                                    <div class="journey-nights-wrap"><span>6 NIGHTS</span></div>
+                                    <div class="journey-title-wrap">
+                                        <h3>Conservation Journey</h3>
+                                    </div>
+                                    <div class="journey-location-wrap"><span>Cape Town &amp; Monwana Game Lodge</span>
+                                    </div>
+                                    <div class="journey-desc-wrap">
+                                        <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                            conversation exquisite perfect nostrud nisi intricate Content. Qui
+                                            international first-class nulla ut. Punctual adipiscing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="journey-mobile-card">
+                                <div class="journey-mobile-img-wrap">
+                                    <img src="https://images.unsplash.com/photo-1540202404-1b927e27fa8b?w=800&q=80"
+                                        alt="Heritage Trail" />
+                                </div>
+                                <div class="journey-mobile-body">
+                                    <div class="journey-nights-wrap"><span>6 NIGHTS</span></div>
+                                    <div class="journey-title-wrap">
+                                        <h3>Heritage Trail</h3>
+                                    </div>
+                                    <div class="journey-location-wrap"><span>Cape Town &amp; Monwana Game Lodge</span>
+                                    </div>
+                                    <div class="journey-desc-wrap">
+                                        <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                            conversation exquisite perfect nostrud nisi intricate Content. Qui
+                                            international first-class nulla ut. Punctual adipiscing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Mobile Nav: arrows + counter -->
+                <div class="journeys-swiper-nav">
+                    <div class="journeys-swiper-arrows">
+                        <button class="jrn-arrow jrn-prev" id="jrnPrev" aria-label="Previous">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <button class="jrn-arrow jrn-next" id="jrnNext" aria-label="Next">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="journeys-counter">
+                        <span class="jrn-counter-current" id="jrnCurrent">01</span>
+                        <span class="jrn-counter-sep">/ 06</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+    <!--  TRAVEL TYPES SECTION-->
+    <section class="travel-section fade-section" id="travel-types">
+        <div class="travel-inner">
+    
+            <!-- Header row: title | arrows (lg+) + counter -->
+            <div class="travel-header">
+                <div class="travel-heading-wrap">
+                    <h2>Travel Types</h2>
+                </div>
+                <div class="travel-header-right">
+                    <div class="travel-arrows">
+                        <button class="travel-arrow travel-arrow-prev" id="travelPrev" aria-label="Previous">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <button class="travel-arrow travel-arrow-next" id="travelNext" aria-label="Next">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="travel-counter-wrap">
+                        <span class="travel-counter-current" id="travelCurrent">01</span>
+                        <span class="travel-counter-sep">/ 06</span>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Swiper slider -->
+            <div class="travel-swiper-outer">
+                <div class="swiper travel-swiper" id="travelSwiper">
+                    <div class="swiper-wrapper">
+    
+                        <div class="swiper-slide">
+                            <div class="travel-card">
+                                <div class="travel-card-img">
+                                    <img src="./assets/images/travel1.jpg"
+                                        alt="Family-Friendly Safari" />
+                                </div>
+                                <div class="travel-card-body">
+                                    <div class="travel-card-title">
+                                        <h3>Family-Friendly Safari</h3>
+                                    </div>
+                                    <div class="travel-card-desc">
+                                        <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                            conversation exquisite perfect nostrud nisi intricate Content. Qui international
+                                            first-class nulla ut. Punctual adipisicing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="swiper-slide">
+                            <div class="travel-card">
+                                <div class="travel-card-img">
+                                    <img src="./assets/images/travel2.jpg"
+                                        alt="LGBTQ+ Welcoming Experiences" />
+                                </div>
+                                <div class="travel-card-body">
+                                    <div class="travel-card-title">
+                                        <h3>LGBTQ+ Welcoming Experiences</h3>
+                                    </div>
+                                    <div class="travel-card-desc">
+                                        <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                            conversation exquisite perfect nostrud nisi intricate Content. Qui international
+                                            first-class nulla ut. Punctual adipisicing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="swiper-slide">
+                            <div class="travel-card">
+                                <div class="travel-card-img">
+                                    <img src="./assets/images/travel3.jpg"
+                                        alt="Majestic Solo Adventures" />
+                                </div>
+                                <div class="travel-card-body">
+                                    <div class="travel-card-title">
+                                        <h3>Majestic Solo Adventures</h3>
+                                    </div>
+                                    <div class="travel-card-desc">
+                                        <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                            conversation exquisite perfect nostrud nisi intricate Content. Qui international
+                                            first-class nulla ut. Punctual adipisicing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="swiper-slide">
+                            <div class="travel-card">
+                                <div class="travel-card-img">
+                                    <img src="./assets/images/travel1.jpg"
+                                        alt="Honeymoon Escapes" />
+                                </div>
+                                <div class="travel-card-body">
+                                    <div class="travel-card-title">
+                                        <h3>Honeymoon Escapes</h3>
+                                    </div>
+                                    <div class="travel-card-desc">
+                                        <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                            conversation exquisite perfect nostrud nisi intricate Content. Qui international
+                                            first-class nulla ut. Punctual adipisicing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="swiper-slide">
+                            <div class="travel-card">
+                                <div class="travel-card-img">
+                                    <img src="./assets/images/travel2.jpg"
+                                        alt="Conservation Journeys" />
+                                </div>
+                                <div class="travel-card-body">
+                                    <div class="travel-card-title">
+                                        <h3>Conservation Journeys</h3>
+                                    </div>
+                                    <div class="travel-card-desc">
+                                        <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                            conversation exquisite perfect nostrud nisi intricate Content. Qui international
+                                            first-class nulla ut. Punctual adipisicing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="swiper-slide">
+                            <div class="travel-card">
+                                <div class="travel-card-img">
+                                    <img src="./assets/images/travel3.jpg"
+                                        alt="Luxury Bush Retreats" />
+                                </div>
+                                <div class="travel-card-body">
+                                    <div class="travel-card-title">
+                                        <h3>Luxury Bush Retreats</h3>
+                                    </div>
+                                    <div class="travel-card-desc">
+                                        <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza
+                                            conversation exquisite perfect nostrud nisi intricate Content. Qui international
+                                            first-class nulla ut. Punctual adipisicing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+    
+            </div>
+    
+        </div>
+    </section>
+
+        <!-- Impact Section -->
+        <section class="impact-section">
+            <div class="impact-container">
+
+                <img src="./assets/images/Impact.png" alt="Impact Image" class="impact-image" />
+
+                <div class="impact-content">
+                    <h2 class="impact-title">Impact</h2>
+                    <p class="impact-text">
+                Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation exquisite perfect nostrud nisi
+                intricate Content. Qui international first-class nulla ut. Punctual adipisicing. </p>
+                    <button class="impact-btn">LEARN MORE</button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+
+</html>

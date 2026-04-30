@@ -1,0 +1,39 @@
+/* base.css — @layer base: resets, root tokens, typography defaults */
+
+:root {
+  --color-dark: #1a1f1e;
+  --color-gold: #c9952a;
+  --color-cream: #f5f0e8;
+  --color-brown: #2d2118;
+  --font-Times: "IM Fell English", "Times New Roman", Tim es, serif;
+  --font-open: "Open Sans", sans-serif;
+  --color-muted: rgba(245, 240, 232, 0.25);
+  --color-word-light: rgba(245, 240, 232, 0.22);
+  --color-word-dark: rgba(245, 240, 232, 0.95);
+  --font-heading: "EB Garamond", "Times New Roman", serif;
+  --font-body: "Open Sans", sans-serif;
+  --nav-height: 72px;
+  --nav-height-sm: 60px;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+p {
+  @apply font-light;
+  font-family: var(--font-open);
+}
+
+a {
+  @apply text-white;
+  text-decoration: none;
+  color: inherit;
+}

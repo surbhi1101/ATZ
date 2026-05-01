@@ -5,7 +5,7 @@
   --color-gold: #c9952a;
   --color-cream: #f5f0e8;
   --color-brown: #2d2118;
-  --font-Times: "IM Fell English", "Times New Roman", Tim es, serif;
+  --font-Times: "Times New Roman", Times, serif;
   --font-open: "Open Sans", sans-serif;
   --color-muted: rgba(245, 240, 232, 0.25);
   --color-word-light: rgba(245, 240, 232, 0.22);
@@ -36,4 +36,8 @@ a {
   @apply text-white;
   text-decoration: none;
   color: inherit;
+}
+
+body {
+  @apply bg-[#F5F4F2];
 }

@@ -22,17 +22,26 @@
             </div>
 
             <div class="nav-links">
-                <div class="nav-link-item">
-                    <a href="#">Lodges &amp; Hotels</a>
-                    <img src="./assets/images/dropdown.png" alt="dropdown">
+            <div class="nav-link-item dropdown">
+                <a href="#" class="dropdown-trigger">
+                    Lodges &amp; Hotels
+                    <img src="./assets/images/dropdown.png" alt="dropdown" class="dropdown-icon">
+                </a>
+            
+                <!-- This is the hidden menu -->
+                <div class="dropdown-menu">
+                    <a href="/luxury">Luxury Lodges</a>
+                    <a href="/boutique">Boutique Hotels</a>
+                    <a href="/budget">Budget Stays</a>
                 </div>
+            </div>
                 <div class="nav-link-item">
                     <a href="#">Residences</a>
                 </div>
                 <div class="nav-link-item">
                     <a href="#">Journeys</a>
                 </div>
-                <div class="nav-link-item nav-menu-icon">
+                <div class="nav-link-item nav-menu-icon" id="menuTrigger">
                     <img src="./assets/images/submenu.png" alt="submenu">
                     <a href="#">Menu</a>
                 </div>
@@ -58,7 +67,54 @@
             
         </div>
     </nav>
+<!-- ── FULL MENU OVERLAY ── -->
+<div class="full-menu-overlay" id="fullMenuOverlay">
+    <!-- Overlay Header -->
+    <div class="overlay-header">
+        <div class="nav-logo">
+          <img src="./assets/images/navlogo.png" alt="logo">
+       
+        <button class="overlay-close" id="menuCloseBtn">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="1" x2="15" y2="15" stroke="#262633" stroke-width="1.5" stroke-linecap="round" />
+                <line x1="15" y1="1" x2="1" y2="15" stroke="#262633" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+            Close
+        </button>
+        </div>
+        <button class="btn-plan" style="background:#F1B332;color:#262633;">Plan My Trip</button>
+    </div>
 
+    <!-- 3-column content -->
+    <div class="menu-content-container">
+        <!-- LEFT — Primary navigation links -->
+        <div class="primary-links">
+            <a href="#" class="stagger-item">
+                Lodges And Hotels
+                <span class="link-arrow">→</span>
+            </a>
+            <a href="#" class="stagger-item">Residences</a>
+            <a href="#" class="stagger-item">Journeys</a>
+            <a href="#" class="stagger-item">Experiences</a>
+            <a href="#" class="stagger-item">Impact</a>
+        </div>
+
+        <!-- CENTER — Image preview -->
+        <div class="image-preview stagger-item">
+            <div class="image-preview-placeholder"></div>
+        </div>
+
+        <!-- RIGHT — Secondary links -->
+        <div class="secondary-links">
+            <a href="#" class="stagger-item">Our Story</a>
+            <a href="#" class="stagger-item">Rates</a>
+            <a href="#" class="stagger-item">Travel Partners</a>
+            <a href="#" class="stagger-item">Blog</a>
+            <a href="#" class="stagger-item">Gallery</a>
+            <a href="#" class="stagger-item">Contact Us</a>
+        </div>
+    </div>
+</div>
     <main>
 
         <!-- HERO SECTION -->
@@ -110,11 +166,7 @@
             </div>
             <div class="lodges-view-toggle">
                 <div class="view-btn active" id="listViewBtn">
-                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none">
-                        <rect y="0" width="16" height="2" fill="currentColor" />
-                        <rect y="6" width="16" height="2" fill="currentColor" />
-                        <rect y="12" width="16" height="2" fill="currentColor" />
-                    </svg>
+                   <img src="./assets/images/list.svg" alt="">
                     <span>List View</span>
                 </div>
                 <div class="view-btn" id="mapViewBtn">
@@ -149,6 +201,9 @@
                                 exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
                                 ut. Punctual adipisicing.</p>
                         </div>
+                        <div class="address">
+                            <span> From USD X XXX</span>
+                        </div>
                         </div>
                 </div>
 
@@ -169,6 +224,8 @@
                             <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation
                                 exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
                                 ut. Punctual adipisicing.</p>
+                        </div><div class="address">
+                            <span> From USD X XXX</span>
                         </div>
                       </div>
                 </div>
@@ -190,6 +247,8 @@
                             <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation
                                 exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
                                 ut. Punctual adipisicing.</p>
+                        </div><div class="address">
+                            <span> From USD X XXX</span>
                         </div>
                      </div>
                 </div>
@@ -211,6 +270,8 @@
                             <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation
                                 exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
                                 ut. Punctual adipisicing.</p>
+                        </div><div class="address">
+                            <span> From USD X XXX</span>
                         </div>
                      </div>
                 </div>
@@ -231,6 +292,8 @@
                             <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation
                                 exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
                                 ut. Punctual adipisicing.</p>
+                        </div><div class="address">
+                            <span> From USD X XXX</span>
                         </div>
                       </div>
                 </div>
@@ -253,31 +316,26 @@
                                 exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla
                                 ut. Punctual adipisicing.</p>
                         </div>
-                     </div>
+                     </div><div class="address">
+                        <span> From USD X XXX</span>
+                    </div>
                 </div>
 
-            </div><!-- /lodges-track -->
-
-            <!-- Prev arrow — hidden at start -->
+            </div>
             <div class="lodges-prev-wrap hidden" id="lodgesPrevWrap">
-                <button class="lodges-arrow-btn" id="lodgesPrevBtn" aria-label="Previous">
-                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                        <path d="M13 4l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                </button>
+            <button class="lodges-arrow-btn" id="lodgesPrevBtn" aria-label="Previous">
+             <img src="./assets/images/left-arrow.png" alt="left-arrow">
+            </button>
+            
             </div>
-
-            <!-- Next arrow — visible at start -->
             <div class="lodges-next-wrap" id="lodgesNextWrap">
-                <button class="lodges-arrow-btn" id="lodgesNextBtn" aria-label="Next">
-                    <img src="./assets/images/right-arrow.png" alt="right-arrow">
-                </button>
+            <!-- NEXT button -->
+            <button class="lodges-arrow-btn" id="lodgesNextBtn" aria-label="Next">
+       <img src="./assets/images/right-arrow.png" alt="right-arrow">
+            </button>
             </div>
 
-        </div><!-- /lodges-slider-wrap -->
-
-        <!-- Counter -->
+        </div>
         <div class="lodges-counter">
             <div class="lodges-counter-inner">
                 <span class="counter-current" id="counterCurrent">01</span>
@@ -286,34 +344,146 @@
             </div>
         </div>
 
-    </div><!-- /lodges-inner -->
+    </div>
 </section>
-<!-- JOURNEYS SECTION -->
-<section class="journeys-section fade-section" id="journeys">
-    <div class="journeys-inner">
-
-        <!-- ── Left Column: Heading + Text + CTA ── -->
-        <div class="journeys-left">
-            <div class="journeys-heading-wrap">
-                <h2>Journeys</h2>
-            </div>
-            <div class="journeys-body-wrap">
-                <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation exquisite
-                    perfect nostrud nisi intricate Content. Qui international first-class nulla ut. Punctual adipiscing.
-                </p>
-            </div>
-            <div class="journeys-cta-wrap">
-                <button class="btn-view-all">View All</button>
+<!--RESIDENCES SECTION-->
+<section class="residences-section fade-section" id="residences">
+    <div class="residences-inner">
+ <div class="residences-content-wrap">
+            <div class="res-slide">
+                 <div class="res-slide-img">
+                    <img src="./assets/images/Residences.png"
+                        alt="Marataba Game Lodge" />
+                    <div class="res-slide-overlay"></div>
+                </div>
+  <div class="res-slide-content">
+    <div class="res-slide-location-wrap mobile-desc">
+        <span>Marataba Game Lodge — Marakele National Park</span>
+    </div>
+                    <div class="res-slide-title-wrap">
+                        <h2>Our Residences</h2>
+                    </div>
+                    <div class="res-slide-btn-wrap">
+                        <button class="btn-find-out">Find Out More</button>
+                    </div>
+                </div>
+  <div class="res-slide-location-wrap-desktop desktop-desc">
+                    <span>Marataba Game Lodge — Marakele National Park</span>
+                </div>
             </div>
         </div>
 
-        <!-- ── Right Column: Desktop Grid (lg+) ── -->
+    </div>
+</section>
+<!--PLAN MY AFRICAN JOURNEY -->
+<section class="plan-section fade-section" id="plan-journey">
+    <div class="destination-inner">
+    <div class="plan-inner">
+
+        <div class="plan-heading-wrap">
+            <h2>Plan My African Journey</h2>
+        </div>
+
+        <div class="plan-usp-row">
+            <div class="plan-usp-item"><span>USP 1</span></div>
+            <div class="plan-usp-item"><span>USP 2</span></div>
+            <div class="plan-usp-item"><span>USP 3</span></div>
+        </div>
+
+        <div class="plan-body-wrap">
+            <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation exquisite perfect nostrud nisi
+            intricate Content. Qui international first-class nulla ut. Punctual adipisicing.</p>
+        </div>
+
+        <div class="plan-cta-wrap">
+            <button class="plan-cta-btn">Find Out More</button>
+        </div>
+
+    </div>
+
+ <div class="dest-inner">
+
+        <div class="dest-heading-wrap">
+            <h2>Destinations</h2>
+        </div>
+        <div class="dest-grid">
+
+            <div class="dest-card dest-card--botswana">
+                <div class="dest-card-img">
+                    <img src="./assets/images/Destination1.jpg"
+                        alt="Botswana" />
+                </div>
+                <div class="dest-card-overlay">
+                    <div class="dest-card-label-wrap"><span>Botswana</span></div>
+                </div>
+            </div>
+
+            <div class="dest-card dest-card--namibia">
+                <div class="dest-card-img">
+                <img src="./assets/images/Destination2.jpg" alt="Namibia" />
+                </div>
+                <div class="dest-card-overlay">
+                    <div class="dest-card-label-wrap"><span>Namibia</span></div>
+                </div>
+            </div>
+
+            <div class="dest-card dest-card--south-africa">
+                <div class="dest-card-img">
+                <img src="./assets/images/Destination3.png" alt="South Africa" />
+                </div>
+                <div class="dest-card-overlay">
+                    <div class="dest-card-label-wrap"><span>South Africa</span></div>
+                </div>
+            </div>
+
+            <div class="dest-card dest-card--zimbabwe">
+                <div class="dest-card-img">
+                <img src="./assets/images/Destination4.png" alt="Zimbabwe" />
+                </div>
+                <div class="dest-card-overlay">
+                    <div class="dest-card-label-wrap"><span>Zimbabwe</span></div>
+                </div>
+            </div>
+
+            <div class="dest-card dest-card--zambia">
+                <div class="dest-card-img">
+                <img src="./assets/images/Destination5.png"   alt="Zambia" />
+                </div>
+                <div class="dest-card-overlay">
+                    <div class="dest-card-label-wrap"><span>Zambia</span></div>
+                </div>
+            </div>
+
+        </div><!-- /dest-grid -->
+
+    </div></div>
+</section>
+
+<!-- JOURNEYS SECTION -->
+<section class="journeys-section fade-section" id="journeys">
+    <div class="journeys-inner">
+        
+  <div class="journeys-left">
+      <div class="journeys-top">
+      <div class="journeys-heading-wrap">
+                <h2>Journeys</h2>
+            </div>
+     <div class="journeys-right-content">
+                <div class="journeys-body-wrap">
+                <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation exquisite
+                    perfect nostrud nisi intricate Content. Qui international first-class nulla ut. Punctual adipiscing.
+                </p>
+                </div>
+    
+                <div class="journeys-cta-wrap">
+                    <button class="btn-view-all">View All</button>
+                </div>
+                </div>
+            </div>
         <div class="journeys-right">
-
-            <!-- Desktop Layout: 3-card grid -->
+            
             <div class="journeys-grid">
-
-                <!-- Featured card (left, tall) -->
+                
                 <div class="journey-card journey-card--featured">
                     <div class="journey-card-img-wrap">
                         <img src="./assets/images/Journey1.jpg" />
@@ -335,8 +505,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Right stack: 2 small cards -->
                 <div class="journeys-stack">
                     <div class="journey-card journey-card--small">
                         <div class="journey-card-img-wrap">
@@ -386,9 +554,20 @@
                 </div>
 
             </div>
-
-            <!-- Mobile/Tablet Swiper -->
             <div class="journeys-swiper-wrap">
+                <!-- PREV -->
+                <div class="journeys-prev-wrap" id="jrnPrevWrap">
+                    <button class="lodges-arrow-btn" id="jrnPrev">
+                        <img src="./assets/images/left-arrow.png" alt="left-arrow">
+                    </button>
+                </div>
+                
+                <!-- NEXT -->
+                <div class="journeys-next-wrap" id="jrnNextWrap">
+                    <button class="lodges-arrow-btn" id="jrnNext">
+                        <img src="./assets/images/right-arrow.png" alt="right-arrow">
+                    </button>
+                </div>
                 <div class="swiper journeys-swiper" id="journeysSwiper">
                     <div class="swiper-wrapper">
 
@@ -527,28 +706,6 @@
                     </div>
                 </div>
 
-                <!-- Mobile Nav: arrows + counter -->
-                <div class="journeys-swiper-nav">
-                    <div class="journeys-swiper-arrows">
-                        <button class="jrn-arrow jrn-prev" id="jrnPrev" aria-label="Previous">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </button>
-                        <button class="jrn-arrow jrn-next" id="jrnNext" aria-label="Next">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="journeys-counter">
-                        <span class="jrn-counter-current" id="jrnCurrent">01</span>
-                        <span class="jrn-counter-sep">/ 06</span>
-                    </div>
-                </div>
-
             </div>
 
         </div>
@@ -558,35 +715,18 @@
     <!--  TRAVEL TYPES SECTION-->
     <section class="travel-section fade-section" id="travel-types">
         <div class="travel-inner">
-    
-            <!-- Header row: title | arrows (lg+) + counter -->
             <div class="travel-header">
                 <div class="travel-heading-wrap">
                     <h2>Travel Types</h2>
                 </div>
                 <div class="travel-header-right">
-                    <div class="travel-arrows">
-                        <button class="travel-arrow travel-arrow-prev" id="travelPrev" aria-label="Previous">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </button>
-                        <button class="travel-arrow travel-arrow-next" id="travelNext" aria-label="Next">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </button>
-                    </div>
+                   
                     <div class="travel-counter-wrap">
                         <span class="travel-counter-current" id="travelCurrent">01</span>
                         <span class="travel-counter-sep">/ 06</span>
                     </div>
                 </div>
             </div>
-    
-            <!-- Swiper slider -->
             <div class="travel-swiper-outer">
                 <div class="swiper travel-swiper" id="travelSwiper">
                     <div class="swiper-wrapper">
@@ -709,10 +849,20 @@
                 </div>
     
             </div>
+    <div class="travel-prev-wrap hidden" id="travelPrevWrap">
+        <button class="lodges-arrow-btn" id="travelPrev" aria-label="Previous">
+            <img src="./assets/images/left-arrow.png" alt="left-arrow">
+        </button>
     
+    </div>
+    <div class="travel-next-wrap" id="travelNextWrap">
+        <button class="lodges-arrow-btn" id="travelNext" aria-label="Next">
+            <img src="./assets/images/right-arrow.png" alt="right-arrow">
+        </button>
+    </div>
+
         </div>
     </section>
-
         <!-- Impact Section -->
         <section class="impact-section">
             <div class="impact-container">
@@ -729,7 +879,384 @@
 
             </div>
         </section>
+
+        <!-- STORIES SECTION -->
+        <section class="stories-section fade-section" id="stories">
+            <div class="stories-inner">
+        
+                <div class="stories-left">
+                    <div class="stories-heading-wrap">
+                        <h2>Stories</h2>
+                    </div>
+                    <div class="stories-desc-wrap">
+                        <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation
+                            exquisite perfect nostrud nisi intricate Content.</p>
+                    </div>
+                    <div class="stories-cta-wrap">
+                        <button class="stories-view-btn">View All</button>
+                    </div>
+                </div>
+        
+                <div class="stories-slider-outer">
+            <div class="stories-prev-wrap" id="storiesPrevWrap">
+                <button class="lodges-arrow-btn" id="storiesPrevBtn">
+                    <img src="./assets/images/left-arrow.png">
+                </button>
+            </div>
+            
+            <div class="stories-next-wrap" id="storiesNextWrap">
+                <button class="lodges-arrow-btn" id="storiesNextBtn">
+                    <img src="./assets/images/right-arrow.png">
+                </button>
+            </div>
+                    <div class="stories-track" id="storiesTrack">
+        
+                            <div class="stories-card">
+                                <div class="stories-card-img-wrap">
+                                    <img src="./assets/images/Story1.jpg" alt="Awakening an Artist's Muse at Lion Sands" />
+                                </div>
+                                <div class="stories-card-body">
+                                    <div class="stories-card-sub">
+                                        <div class="stories-card-date-wrap">
+                                            <span>X June 2025</span>
+                                        </div>
+                                        <div class="stories-card-title-wrap">
+                                            <h3>Awakening an Artist's Muse at Lion Sands</h3>
+                                        </div>
+                                    </div>
+                                    <div class="stories-card-link-wrap">
+                                        <a href="#">Read Blog</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stories-card">
+                                <div class="stories-card-img-wrap">
+                                    <img src="./assets/images/Story2.jpg" alt="Awakening an Artist's Muse at Lion Sands" />
+                                </div>
+                                <div class="stories-card-body">
+                                    <div class="stories-card-sub">
+                                        <div class="stories-card-date-wrap">
+                                            <span>X June 2025</span>
+                                        </div>
+                                        <div class="stories-card-title-wrap">
+                                            <h3>Rebuilding Ivory Lodge: the interior design</h3>
+                                        </div>
+                                    </div>
+                                    <div class="stories-card-link-wrap">
+                                        <a href="#">Read Blog</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stories-card">
+                                <div class="stories-card-img-wrap">
+                                    <img src="./assets/images/Story1.jpg" alt="Awakening an Artist's Muse at Lion Sands" />
+                                </div>
+                                <div class="stories-card-body">
+                                    <div class="stories-card-sub">
+                                        <div class="stories-card-date-wrap">
+                                            <span>X June 2025</span>
+                                        </div>
+                                        <div class="stories-card-title-wrap">
+                                            <h3>Awakening an Artist's Muse at Lion Sands</h3>
+                                        </div>
+                                    </div>
+                                    <div class="stories-card-link-wrap">
+                                        <a href="#">Read Blog</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stories-card">
+                                <div class="stories-card-img-wrap">
+                                    <img src="./assets/images/Story2.jpg" alt="Awakening an Artist's Muse at Lion Sands" />
+                                </div>
+                                <div class="stories-card-body">
+                                    <div class="stories-card-sub">
+                                        <div class="stories-card-date-wrap">
+                                            <span>X June 2025</span>
+                                        </div>
+                                        <div class="stories-card-title-wrap">
+                                            <h3>Awakening an Artist's Muse at Lion Sands</h3>
+                                        </div>
+                                    </div>
+                                    <div class="stories-card-link-wrap">
+                                        <a href="#">Read Blog</a>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+        
+            </div>
+        </section>
+
     </main>
+<!-- ══════════════════════════════════════════════
+         FOOTER
+    ══════════════════════════════════════════════ -->
+<footer class="site-footer" id="site-footer">
+
+    <!-- ── Newsletter Row ── -->
+    <div class="footer-newsletter">
+        <div class="footer-nl-inner">
+
+            <!-- Mobile: accordion toggle -->
+            <div class="footer-nl-toggle" id="nlToggle">
+                <div class="footer-nl-label-wrap">
+                    <span>Join Our Newsletter</span>
+                </div>
+                <div class="footer-nl-chevron-wrap">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Desktop: inline form / Mobile: accordion body -->
+            <div class="footer-nl-form-wrap" id="nlFormWrap">
+                <div class="footer-nl-form">
+                    <div class="newsletter">
+                    <span>Join our newsletter</span>
+                    </div>
+                    <div class="footer-nl-field-wrap">
+                        <input type="text" placeholder="First Name" class="footer-nl-input" />
+                    </div>
+                    <div class="footer-nl-field-wrap">
+                        <input type="email" placeholder="Email Address" class="footer-nl-input" />
+                    </div>
+                    <div class="footer-nl-field-wrap footer-nl-select-wrap">
+                        <select class="footer-nl-select">
+                            <option value="" disabled selected>Country Of Residence</option>
+                            <option>South Africa</option>
+                            <option>United Kingdom</option>
+                            <option>United States</option>
+                            <option>Germany</option>
+                            <option>France</option>
+                            <option>Australia</option>
+                        </select>
+                        <div class="footer-nl-select-chevron">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="footer-nl-btn-wrap">
+                        <button class="btn-signup">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ── Footer Body ── -->
+    <div class="footer-body">
+        <div class="footer-body-inner">
+
+            <!-- Col 1: Logo + tagline + CTA -->
+            <div class="footer-brand-col">
+                <div class="footer-logo-wrap">
+                    <div class="footer-logo-icon">
+                      <img src="./assets/images/logo.png" alt="logo">
+                    </div>
+                </div>
+                <div class="footer-tagline-wrap">
+                    <p>Lorem Ipsum </p>
+                     <p>Excepteur efficient</p>
+                     <p> emerging</p>
+                </div>
+                <div class="footer-cta-wrap">
+                    <button class="btn-plan-footer">Plan My Trip</button>
+                </div>
+            </div>
+
+            <!-- Col 2: Lodges & Hotels -->
+            <div class="footer-nav-col">
+                <div class="footer-col-header" data-accordion="lodges">
+                    <div class="footer-col-title-wrap">
+                        <span>Lodges &amp; Hotels</span>
+                    </div>
+                    <div class="footer-col-chevron">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="footer-col-links" id="acc-lodges">
+                    <div class="footer-link-wrap"><a href="#">Lion Sands Game Reserve</a></div>
+                    <div class="footer-link-wrap"><a href="#">Monwana Game Lodge</a></div>
+                    <div class="footer-link-wrap"><a href="#">Marataba Game Lodge</a></div>
+                    <div class="footer-link-wrap"><a href="#">Cape Cadogan Boutique Hotel</a></div>
+                </div>
+            </div>
+
+            <!-- Col 3: Residences -->
+            <div class="footer-nav-col">
+                <div class="footer-col-header" data-accordion="residences">
+                    <div class="footer-col-title-wrap">
+                        <span>Residences</span>
+                    </div>
+                    <div class="footer-col-chevron">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="footer-col-links" id="acc-residences">
+                    <div class="footer-link-wrap"><a href="#">Fish Eagle Residence</a></div>
+                    <div class="footer-link-wrap"><a href="#">Hinkwenu Residence</a></div>
+                    <div class="footer-link-wrap"><a href="#">Monwana Residence</a></div>
+                    <div class="footer-link-wrap"><a href="#">Marataba Residence</a></div>
+                    <div class="footer-link-wrap"><a href="#">Cape Cadogan Residence</a></div>
+                </div>
+            </div>
+
+            <!-- Col 4: Travel Africa -->
+            <div class="footer-nav-col">
+                <div class="footer-col-header" data-accordion="travel">
+                    <div class="footer-col-title-wrap">
+                        <span>Travel Africa</span>
+                    </div>
+                    <div class="footer-col-chevron">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="footer-col-links" id="acc-travel">
+                    <div class="footer-link-wrap"><a href="#">Destinations</a></div>
+                    <div class="footer-link-wrap"><a href="#">Travel Types</a></div>
+                    <div class="footer-link-wrap"><a href="#">Journeys</a></div>
+                </div>
+            </div>
+
+            <!-- Col 5: Experiences -->
+            <div class="footer-nav-col">
+                <div class="footer-col-header" data-accordion="experiences">
+                    <div class="footer-col-title-wrap">
+                        <span>Experiences</span>
+                    </div>
+                    <div class="footer-col-chevron">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="footer-col-links" id="acc-experiences">
+                    <div class="footer-link-wrap"><a href="#">Our Story</a></div>
+                    <div class="footer-link-wrap"><a href="#">Impact</a></div>
+                    <div class="footer-link-wrap"><a href="#">Rates</a></div>
+                </div>
+            </div>
+
+            <!-- Col 6: Media Library -->
+            <div class="footer-nav-col">
+                <div class="footer-col-header" data-accordion="media">
+                    <div class="footer-col-title-wrap">
+                        <span>Media Library</span>
+                    </div>
+                    <div class="footer-col-chevron">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="footer-col-links" id="acc-media">
+                    <div class="footer-link-wrap"><a href="#">Gallery</a></div>
+                    <div class="footer-link-wrap"><a href="#">Careers</a></div>
+                    <div class="footer-link-wrap"><a href="#">Blog</a></div>
+                    <div class="footer-link-wrap"><a href="#">Contact Us</a></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ── Divider ── -->
+    <div class="footer-divider-wrap">
+        <div class="footer-divider"></div>
+    </div>
+
+    <!-- ── Bottom Bar ── -->
+    <div class="footer-bottom">
+        <div class="footer-bottom-inner">
+            <div class="footer-copy-wrap">
+                <span>© 2025 ATZ. All rights reserved.</span>
+            </div>
+            <div class="footer-legal-wrap">
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+            </div>
+            <div class="footer-social-wrap">
+                <!-- YouTube -->
+                <a href="#" class="footer-social-link" aria-label="YouTube">
+                   <img src="./assets/images/youtube.png" alt="youtube">
+                </a>
+                <!-- Facebook -->
+                <a href="#" class="footer-social-link" aria-label="Facebook">
+                  <img src="./assets/images/facebook.png" alt="Facebook">
+                </a>
+                <!-- Instagram -->
+                <a href="#" class="footer-social-link" aria-label="Instagram">
+                   <img src="./assets/images/instagram.png" alt="Instagram">
+                </a>
+                <!-- LinkedIn -->
+                <a href="#" class="footer-social-link" aria-label="LinkedIn">
+                <img src="./assets/images/linkedin.png" alt="LinkedIn">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Affiliations ── -->
+    <div class="footer-affiliations">
+        <div class="footer-affiliations-inner">
+            <div class="footer-affiliations-label-wrap">
+                <span>Our Affiliations and Partners</span>
+            </div>
+            <div class="footer-partners-row">
+                <div class="footer-partner-card">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z" stroke="currentColor"
+                            stroke-width="1.2" />
+                    </svg>
+                </div>
+                <div class="footer-partner-card">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.2" />
+                        <path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div class="footer-partner-card">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.2" />
+                        <path d="M3 9h18M9 21V9" stroke="currentColor" stroke-width="1.2" />
+                    </svg>
+                </div>
+                <div class="footer-partner-card">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14l-5-5 1.41-1.41L12 13.17l7.59-7.59L21 7l-9 9z"
+                            stroke="currentColor" stroke-width="1.2" />
+                    </svg>
+                </div>
+                <div class="footer-partner-card">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 6h16M4 12h16M4 18h7" stroke="currentColor" stroke-width="1.2"
+                            stroke-linecap="round" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>
 
     <script type="module" src="assets/js/main.js"></script>
 </body>

@@ -79,17 +79,17 @@
   /* ─── LODGES SECTION LAYOUT ──────────────────────────────── */
 
   .lodges-section {
-    @apply w-full bg-white;
+    @apply w-full overflow-hidden;
   }
 
   .lodges-inner {
-    @apply w-full pl-6 pt-[92px] pb-[110px]
+    @apply w-full pl-6 pt-[92px] 
 lg:pl-[60px] lg:pt-30 flex flex-col gap-[41px]
-xl:pl-[65px] xl:pt-[127px] xl:pb-14
-2xl:pl-[120px] 2xl:pt-24 2xl:pb-16;
+xl:pl-[65px] xl:pt-[127px] 
+2xl:pl-[120px] 2xl:pt-24;
   }
   .lodges-header {
-    @apply flex items-center justify-between;
+    @apply flex items-center gap-20 lg:justify-between;
   }
   .lodges-slider-wrap {
     @apply relative w-full;
@@ -110,52 +110,208 @@ xl:pl-[65px] xl:pt-[127px] xl:pb-14
   }
 
   .lodges-next-wrap {
-    @apply right-[78px];
+    @apply right-2 xl:right-[78px];
   }
 
   .lodges-counter {
-    @apply flex justify-end mt-5 md:mt-6;
+    @apply flex justify-end pr-6 xl:pr-[75px];
   }
 
   .lodges-counter-inner {
     @apply flex items-center;
   }
-  /* ════════════════════════════════════════
-     JOURNEYS SECTION LAYOUT
-  ════════════════════════════════════════ */
 
+  /* ─── PLAN MY AFRICAN JOURNEY LAYOUT ─────────────────────── */
+
+  .plan-section {
+    @apply w-full;
+    background-color: #f7f4ef;
+  }
+
+  .plan-inner {
+    @apply w-full flex flex-col items-center text-center gap-[30px] xl:gap-6;
+  }
+
+  .destination-inner {
+    @apply flex flex-col gap-[53px] xl:gap-[81px] px-6 pb-[105px] lg:px-10 xl:px-[64px] xl:pb-[115px];
+  }
+  .plan-usp-row {
+    @apply flex flex-wrap items-center justify-center;
+  }
+
+  .plan-usp-item {
+    @apply flex items-center;
+  }
+
+  .plan-usp-item::before {
+    content: "•";
+    @apply text-[#c9952a] mx-[6px] text-[10px];
+  }
+
+  .plan-body-wrap {
+    @apply max-w-[480px];
+    @apply md:max-w-[560px];
+    @apply lg:max-w-[640px];
+  }
+
+  .plan-cta-wrap {
+    @apply flex justify-center;
+  }
+
+  /* ─── DESTINATIONS LAYOUT ─────────────────────────────────── */
+
+  .dest-section {
+    @apply w-full;
+    background-color: #f7f4ef;
+  }
+
+  .dest-inner {
+    @apply w-full flex flex-col gap-6;
+  }
+
+  .dest-grid {
+    @apply grid gap-3 xl:gap-6;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    .dest-grid {
+      gap: 14px;
+    }
+  }
+
+  @media (min-width: 1152px) {
+    .dest-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .dest-grid {
+      gap: 20px;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .dest-grid {
+      gap: 24px;
+    }
+  }
+  .dest-card {
+    @apply relative overflow-hidden;
+    aspect-ratio: 1 / 1;
+  }
+
+  .dest-card--zambia {
+    @apply col-span-2;
+    aspect-ratio: 16 / 8;
+  }
+  @media (min-width: 1152px) {
+    .dest-card--botswana,
+    .dest-card--namibia,
+    .dest-card--south-africa {
+      aspect-ratio: unset;
+      height: 360px;
+    }
+
+    .dest-card--zambia {
+      grid-column: 1 / 3;
+      grid-row: 2;
+      aspect-ratio: unset;
+      height: 360px;
+    }
+
+    .dest-card--zimbabwe {
+      grid-column: 3 / 4;
+      grid-row: 2;
+      aspect-ratio: unset;
+      height: 360px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .dest-card--botswana,
+    .dest-card--namibia,
+    .dest-card--south-africa {
+      height: 410px;
+    }
+    .dest-card--zambia {
+      height: 410px;
+      grid-column: 1/3;
+      grid-row: 2;
+    }
+    .dest-card--zimbabwe {
+      height: 410px;
+      grid-column: 3/4;
+      grid-row: 2;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .dest-card--botswana,
+    .dest-card--namibia,
+    .dest-card--south-africa {
+      height: 480px;
+    }
+    .dest-card--zambia {
+      height: 480px;
+      grid-column: 1/3;
+      grid-row: 2;
+    }
+    .dest-card--zimbabwe {
+      height: 480px;
+      grid-column: 3/4;
+      grid-row: 2;
+    }
+  }
+  /* JOURNEYS SECTION LAYOUT*/
   .journeys-inner {
-    @apply w-full mx-auto flex flex-col;
-    @apply px-6 py-12;
-    @apply md:px-12 md:py-16;
-    @apply lg:items-start lg:gap-10 lg:px-14 lg:py-16;
-    @apply xl:gap-14 xl:px-[72px] xl:py-[80px];
-    @apply 2xl:px-[100px] 2xl:py-[96px] 2xl:gap-16;
-    max-width: 1920px;
+    @apply w-full mx-auto 
+         flex flex-col 
+         gap-6
+         px-8 pt-[61px] pb-[52px]
+         xl:px-[72px] xl:py-[80px]
+         2xl:px-[100px] 2xl:py-[96px];
+  }
+
+  .jounery-left-inner {
+    @apply flex flex-col gap-6;
   }
 
   .journeys-left {
-    @apply w-full lg:w-[300px] xl:w-[340px] 2xl:w-[400px] shrink-0;
+    @apply flex flex-col gap-6;
+  }
+
+  .journeys-top {
+    @apply flex flex-col md:flex-row justify-between items-start gap-6;
+  }
+  .journeys-heading-wrap {
+    @apply md:w-[50%];
+  }
+  .journeys-right-content {
+    @apply md:w-[50%] flex flex-col gap-4;
+  }
+
+  .journeys-cta-wrap {
+    @apply flex justify-start;
+  }
+
+  .journey-left-inner {
+    @apply mt-auto flex flex-col gap-4;
   }
 
   .journeys-right {
     @apply flex-1 min-w-0;
   }
-
-  /* ════════════════════════════════════════
-     TRAVEL TYPES LAYOUT
-  ════════════════════════════════════════ */
+  /* TRAVEL TYPES LAYOUT */
 
   .travel-inner {
-    @apply w-full mx-auto overflow-hidden;
-    /* padding: top/bottom | left/right — matches Journeys section */
-    @apply px-6 pt-12 pb-16;
-    @apply md:px-12 md:pt-16 md:pb-20;
-    @apply lg:px-14 lg:pt-16 lg:pb-20;
-    @apply xl:px-[72px] xl:pt-[72px] xl:pb-[88px];
-    @apply 2xl:px-[100px] 2xl:pt-[88px] 2xl:pb-[100px];
+    @apply w-full mx-auto overflow-hidden flex flex-col gap-[41px] relative
+    pl-6 pt-[88px] pb-[127px] lg:pl-14 lg:pt-16 lg:pb-20   xl:pl-[65px] xl:pt-[118px] xl:pb-[176px] 2xl:pl-[130px] 2xl:pt-[125px] 2xl:pb-[190px];
     max-width: 1920px;
   }
+
   /* ─── IMPACT SECTION ── */
   .impact-section {
     @apply w-full flex justify-center;
@@ -164,5 +320,107 @@ xl:pl-[65px] xl:pt-[127px] xl:pb-14
   .impact-container {
     @apply relative w-full max-w-[1920px] overflow-hidden
            min-h-[304px] md:min-h-[350px] lg:min-h-[600px] xl:min-h-[718px];
+  }
+
+  /* ════════════════════════════════════════
+STORIES SECTION LAYOUT
+════════════════════════════════════════ */
+
+  .stories-section {
+    @apply w-full;
+  }
+
+  .stories-inner {
+    @apply flex flex-col gap-[40px]  pl-6 pt-[91px] pb-[94px]
+     lg:flex-row lg:items-start lg:gap-10 lg:pl-[60px] lg:pt-18 lg:pb-20 
+     xl:gap-[93px] xl:pl-[64px] xl:pt-[103px] xl:pb-[131] 2xl:pl-[120px] 
+     2xl:pt-24 2xl:pb-28;
+  }
+  .stories-left {
+    @apply flex flex-col w-full xl:mt-[168px] gap-5 xl:gap-[30px] 2xl:gap-[32px];
+    @apply w-[346px];
+  }
+
+  .stories-heading-wrap {
+    /* @apply mb-4 md:mb-5 lg:mb-6; */
+  }
+
+  .stories-desc-wrap {
+    @apply lg:max-w-none;
+  }
+
+  .stories-cta-wrap {
+    @apply flex;
+  }
+
+  /* ── Right: slider outer — clips overflow ── */
+  .stories-slider-outer {
+    @apply relative flex-1 overflow-hidden;
+    z-index: 1;
+    /* On mobile the outer handles the clip */
+    min-width: 0;
+  }
+
+  /* ── Track ── */
+  .stories-track {
+    @apply flex gap-[25px] md:gap-[25px] 2xl:gap-[30px];
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  /* ── Individual card ── */
+  .stories-card {
+    @apply flex-shrink-0 flex flex-col bg-white overflow-hidden gap-6 xl:gap-[30px]
+    px-[14px] xl:px-6 pt-[14px] xl:pt-[25px] pb-[21px] xl:pb-[26px];
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Mobile: show 1 card + peek */
+  .stories-card {
+    width: calc(100vw - 131px);
+  }
+
+  @media (min-width: 768px) {
+    /* Show ~1.8 cards on tablet */
+    .stories-card {
+      width: calc((100vw - 80px - 24px) / 1.8);
+    }
+  }
+
+  @media (min-width: 1152px) {
+    /* Available width = viewport - padding(120px) - left-col(28%) - gap(40px) */
+    /* Show 2 cards + slight peek of 3rd */
+    .stories-card {
+      width: calc((100vw - 120px) * 0.72 / 2.1);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .stories-card {
+      width: calc((100vw - 160px) * 0.72 / 2.1);
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .stories-card {
+      width: calc((100vw - 240px) * 0.72 / 2.1);
+    }
+  }
+
+  /* ── Card image area ── */
+  .stories-card-img-wrap {
+    @apply w-full overflow-hidden flex-shrink-0;
+    aspect-ratio: 4 / 3;
+  }
+
+  @media (min-width: 1440px) {
+    .stories-card-img-wrap {
+      aspect-ratio: 3 / 3;
+    }
+  }
+
+  /* ── Card body ── */
+  .stories-card-body {
+    @apply flex flex-col flex-1 gap-[25px] xl:gap-[30px];
   }
 }

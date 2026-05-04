@@ -730,7 +730,7 @@ if (imgPlaceholder) {
   });
 })();
 
-// ─── FULL MENU OVERLAY ─────────────────────────────────────
+// ─── FULL MENU OVERLAY ───────
 (function () {
   const overlay     = document.getElementById("fullMenuOverlay");
   const menuTrigger = document.getElementById("menuTrigger");

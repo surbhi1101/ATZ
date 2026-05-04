@@ -1511,6 +1511,10 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
     @apply text-white;
   }
 
+  .footer-divider-wrap {
+    @apply px-10;
+  }
+
   .footer-divider {
     @apply w-full lg:!px-10;
     height: 1px;

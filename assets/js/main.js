@@ -128,9 +128,13 @@ observer.observe(storySection);
 
   if (!track) return;
 
-  const STEP = 2; // cards to advance per click
-  const TOTAL = 6;
-  let current = 0; // 0-based index of leftmost visible card
+  const TOTAL = track.querySelectorAll(".lodge-card").length;
+  let current = 0;
+
+  // 👉 Dynamic STEP (fix skip issue)
+  function getStep() {
+    return visibleCount() === 1 ? 1 : 2;
+  }
 
   function getCardWidth() {
     const card = track.querySelector(".lodge-card");
@@ -140,32 +144,20 @@ observer.observe(storySection);
     return card.offsetWidth + gap;
   }
 
- function visibleCount() {
-  const wrapW = track.parentElement.offsetWidth;
-  const cw = getCardWidth();
-  if (!cw) return 1;
-  return Math.max(1, Math.ceil(wrapW / cw));
-}
-function maxIndex() {
-  const wrapW = track.parentElement.offsetWidth;
-  const cw = getCardWidth();
-  const totalWidth = TOTAL * cw;
-  return Math.max(0, Math.ceil((totalWidth - wrapW) / cw));
-}
+  function visibleCount() {
+    const wrapW = track.parentElement.offsetWidth;
+    const cw = getCardWidth();
+    if (!cw) return 1;
+    return Math.max(1, Math.floor(wrapW / cw)); // FIXED
+  }
+
+  function maxIndex() {
+    return Math.max(0, TOTAL - visibleCount());
+  }
 
   function updateArrows() {
-    // Prev: hide when at start
-    if (current <= 0) {
-      prevWrap.classList.add("hidden");
-    } else {
-      prevWrap.classList.remove("hidden");
-    }
-    // Next: hide when at end
-    if (current >= maxIndex()) {
-      nextWrap.classList.add("hidden");
-    } else {
-      nextWrap.classList.remove("hidden");
-    }
+    prevWrap.classList.toggle("hidden", current <= 0);
+    nextWrap.classList.toggle("hidden", current >= maxIndex());
   }
 
   function updateCounter() {
@@ -174,31 +166,96 @@ function maxIndex() {
     counterEl.textContent = String(display).padStart(2, "0");
   }
 
-function goTo(index) {
-  // Calculate the maximum scroll offset — never go past last card
-  const maxOffset = (TOTAL - 1) * getCardWidth();
-  
+ function goTo(index) {
+  const cw = getCardWidth();
+  const wrapW = track.parentElement.offsetWidth;
+  const totalWidth = TOTAL * cw;
+
   current = Math.min(Math.max(0, index), maxIndex());
-  
-  // Clamp the offset so we never scroll into empty space
-  const offset = Math.min(current * getCardWidth(), maxOffset);
-  
+
+  let offset = current * cw;
+
+  // 🔥 Prevent extra empty space at end
+  const maxOffset = totalWidth - wrapW;
+  offset = Math.min(offset, maxOffset);
+
+  prevTranslate = -offset;
+  currentTranslate = -offset;
+
+  track.style.transition = "transform 0.4s ease";
   track.style.transform = `translateX(-${offset}px)`;
+
   updateArrows();
   updateCounter();
 }
 
-  nextBtn?.addEventListener("click", () => goTo(current + STEP));
-  prevBtn?.addEventListener("click", () => goTo(current - STEP));
+  // 👉 BUTTON EVENTS
+  nextBtn?.addEventListener("click", () => goTo(current + getStep()));
+  prevBtn?.addEventListener("click", () => goTo(current - getStep()));
 
-  // Recalculate on resize
+  // ─── DRAG / TOUCH SUPPORT ─────────────────────
+  let isDragging = false;
+  let startX = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+  let animationFrame;
+
+  function getPositionX(e) {
+    return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
+  }
+
+  function dragStart(e) {
+    isDragging = true;
+    startX = getPositionX(e);
+    track.style.transition = "none";
+    animationFrame = requestAnimationFrame(animation);
+  }
+
+  function dragMove(e) {
+    if (!isDragging) return;
+    const currentPosition = getPositionX(e);
+    currentTranslate = prevTranslate + (currentPosition - startX);
+  }
+
+  function dragEnd() {
+    cancelAnimationFrame(animationFrame);
+    isDragging = false;
+
+    const movedBy = currentTranslate - prevTranslate;
+
+    if (movedBy < -50) {
+      goTo(current + 1);
+    } else if (movedBy > 50) {
+      goTo(current - 1);
+    } else {
+      goTo(current);
+    }
+  }
+
+  function animation() {
+    track.style.transform = `translateX(${currentTranslate}px)`;
+    if (isDragging) requestAnimationFrame(animation);
+  }
+
+  // 👉 MOUSE EVENTS
+  track.addEventListener("mousedown", dragStart);
+  track.addEventListener("mousemove", dragMove);
+  track.addEventListener("mouseup", dragEnd);
+  track.addEventListener("mouseleave", dragEnd);
+
+  // 👉 TOUCH EVENTS
+  track.addEventListener("touchstart", dragStart, { passive: true });
+  track.addEventListener("touchmove", dragMove, { passive: true });
+  track.addEventListener("touchend", dragEnd);
+
+  // 👉 RESIZE FIX
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => goTo(current), 100);
   });
 
-  // Init
+  // INIT
   goTo(0);
 })();
 
@@ -253,69 +310,85 @@ initJourneysSwiper();
 /* ────────────────────────────────────────────────
     TRAVEL TYPES SWIPER (Refactored Logic)
  ──────────────────────────────────────────────── */
+let travelSwiper;
+
 function initTravelSwiper() {
   const swiperEl = document.getElementById("travelSwiper");
-  const prevWrap = document.getElementById("travelPrevWrap"); // The wrapper div
-  const nextWrap = document.getElementById("travelNextWrap"); // The wrapper div
+  if (!swiperEl) return;
+
+  // Destroy previous instance (important)
+  if (travelSwiper) {
+    travelSwiper.destroy(true, true);
+  }
+
+  const isMobile = window.innerWidth < 1152; 
+  const prevWrap = document.getElementById("travelPrevWrap");
+  const nextWrap = document.getElementById("travelNextWrap");
   const prevBtn = document.getElementById("travelPrev");
   const nextBtn = document.getElementById("travelNext");
   const counter = document.getElementById("travelCurrent");
 
-  if (!swiperEl) return;
-
   const padded = (n) => String(n).padStart(2, "0");
 
-  const swiper = new Swiper(swiperEl, {
-    slidesPerView: 1.08,
-    spaceBetween: 16,
-    loop: false, // Loop must be false for beginning/end logic to work
+travelSwiper = new Swiper(swiperEl, {
+  slidesPerView: 1.08,
+  spaceBetween: 16,
+  loop: isMobile,
 
-    breakpoints: {
-      320: { slidesPerView: 1.1, spaceBetween: 24 },
-      768: { slidesPerView: 1.5, spaceBetween: 24 },
-      1152: { slidesPerView: 2.08, spaceBetween: 32 },
-      1920: { slidesPerView: 3.08, spaceBetween: 40 },
+  autoplay: isMobile
+    ? {
+        delay: 2500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      }
+    : false,
+
+  breakpoints: {
+    320: { slidesPerView: 1.1, spaceBetween: 24 },
+    768: { slidesPerView: 1.5, spaceBetween: 24 },
+    1152: { slidesPerView: 2.08, spaceBetween: 32 },
+    1920: { slidesPerView: 3.08, spaceBetween: 40 },
+  },
+
+  on: {
+    init() {
+      this.emit("slideChange");
     },
 
-    on: {
-      init() {
-        // Initial update
-        this.emit("slideChange");
-      },
-      slideChange() {
-        // Update Counter
-        if (counter) {
-          // Logic: Show the number of the last visible slide
-          const currentVal = Math.min(
-            this.activeIndex + Math.ceil(this.params.slidesPerView),
-            this.slides.length,
-          );
-          counter.textContent = padded(this.activeIndex + 1);
-        }
+    slideChange() {
+      if (counter) {
+        counter.textContent = padded(this.realIndex + 1);
+      }
 
-        // Update Arrows Logic (Matching your Lodges Slider)
-
-        // Prev: hide when at start
-        if (this.isBeginning) {
-          prevWrap?.classList.add("hidden");
-        } else {
-          prevWrap?.classList.remove("hidden");
-        }
-
-        // Next: hide when at end
-        if (this.isEnd) {
-          nextWrap?.classList.add("hidden");
-        } else {
-          nextWrap?.classList.remove("hidden");
-        }
-      },
+      if (!this.params.loop) {
+        prevWrap?.classList.toggle("hidden", this.isBeginning);
+        nextWrap?.classList.toggle("hidden", this.isEnd);
+      } else {
+        prevWrap?.classList.remove("hidden");
+        nextWrap?.classList.remove("hidden");
+      }
     },
-  });
+  },
+});
 
-  // Attach click events to buttons
-  prevBtn?.addEventListener("click", () => swiper.slidePrev());
-  nextBtn?.addEventListener("click", () => swiper.slideNext());
+ if (prevBtn) {
+  prevBtn.onclick = () => travelSwiper.slidePrev();
 }
+
+if (nextBtn) {
+  nextBtn.onclick = () => travelSwiper.slideNext();
+}
+}
+
+// Init
+initTravelSwiper();
+
+// Re-init on resize
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(initTravelSwiper, 200);
+});
 
 document.addEventListener("DOMContentLoaded", initTravelSwiper);
 
@@ -603,27 +676,33 @@ if (imgPlaceholder) {
 }
 // ─── EXPERIENCES SWIPER ────────────────────────────────────
 (function () {
-  const swiperEl = document.getElementById("expSwiper");
-  const nextWrap = document.getElementById("expNext");
-  const prevWrap = document.getElementById("expPrev");
-  const nextBtn = nextWrap?.querySelector(".exp-arrow-btn");
-  const prevBtn = prevWrap?.querySelector(".exp-arrow-btn");
+  const swiperEl    = document.getElementById("expSwiper");
+  const nextWrap    = document.getElementById("expNext");
+  const prevWrap    = document.getElementById("expPrev");
+  const nextBtn     = nextWrap?.querySelector(".exp-arrow-btn");
+  const prevBtn     = prevWrap?.querySelector(".exp-arrow-btn");
   const progressBar = document.getElementById("expProgressBar");
 
   if (!swiperEl) return;
 
   const TOTAL = swiperEl.querySelectorAll(".swiper-slide").length;
 
+  // ── Is mobile/tablet (below lg) ─────────────────────────
+  function isMobile() {
+    return window.innerWidth < 1152;
+  }
+
   // ── Update progress bar ──────────────────────────────────
   function updateProgress(activeIndex) {
     if (!progressBar) return;
-    progressBar.style.width = ((activeIndex + 1) / TOTAL) * 100 + "%";
+ const progress = (activeIndex + 1) / TOTAL;
+progressBar.style.transform = `scaleX(${progress})`;
   }
 
-  // ── Toggle desc visibility on active card only ───────────
+  // ── Toggle desc on active card only ─────────────────────
   function updateActiveCard(activeIndex) {
     swiperEl.querySelectorAll(".swiper-slide").forEach((slide, i) => {
-      const card = slide.querySelector(".exp-card");
+      const card     = slide.querySelector(".exp-card");
       const descWrap = slide.querySelector(".exp-card-desc-wrap");
       if (!card || !descWrap) return;
 
@@ -639,11 +718,21 @@ if (imgPlaceholder) {
 
   // ── Arrow visibility ─────────────────────────────────────
   function updateArrows(swiper) {
+    // On mobile: loop is on, always hide prev/next wrap buttons
+    // (user swipes freely — no arrow UI needed)
+    if (isMobile()) {
+      prevWrap?.classList.add("hidden");
+      nextWrap?.classList.add("hidden");
+      return;
+    }
+
+    // Desktop: show/hide based on position
     if (swiper.isBeginning) {
       prevWrap?.classList.add("hidden");
     } else {
       prevWrap?.classList.remove("hidden");
     }
+
     if (swiper.isEnd) {
       nextWrap?.classList.add("hidden");
     } else {
@@ -651,21 +740,17 @@ if (imgPlaceholder) {
     }
   }
 
-  // ── Position next arrow at junction between card 2 & 3 ───
-  // Arrow always sits at the RIGHT EDGE of the SECOND visible card
-  // i.e. slides[activeIndex + 1], falling back to slides[1]
+  // ── Position next arrow at right edge of second card ─────
   function positionNextArrow(swiper) {
     if (!nextWrap) return;
 
-    // Only show the floating arrow on desktop (lg+)
-    if (window.innerWidth < 1152) {
+    // Mobile: no floating arrow
+    if (isMobile()) {
       nextWrap.style.left = "";
       return;
     }
 
-    const slides = swiperEl.querySelectorAll(".swiper-slide");
-
-    // Target: second card in the current view (activeIndex + 1)
+    const slides      = swiperEl.querySelectorAll(".swiper-slide");
     const targetIndex = swiper.activeIndex + 1;
     const targetSlide = slides[targetIndex] ?? slides[1];
     if (!targetSlide) return;
@@ -673,35 +758,36 @@ if (imgPlaceholder) {
     const wrapEl = swiperEl.closest(".exp-swiper-wrap");
     if (!wrapEl) return;
 
-    const wrapRect = wrapEl.getBoundingClientRect();
+    const wrapRect  = wrapEl.getBoundingClientRect();
     const slideRect = targetSlide.getBoundingClientRect();
-
-    // Right edge of the second card relative to the swiper wrapper
     const rightEdge = slideRect.right - wrapRect.left;
 
-    nextWrap.style.position = "absolute";
-    nextWrap.style.left = rightEdge - 22 + "px"; // 22 = half of 44px btn width
-    nextWrap.style.right = "auto";
-    nextWrap.style.top = "50%";
+    nextWrap.style.position  = "absolute";
+    nextWrap.style.left      = rightEdge - 17 + "px"; // 17 = half of 34px btn
+    nextWrap.style.right     = "auto";
+    nextWrap.style.top       = "50%";
     nextWrap.style.transform = "translateY(-50%)";
   }
 
   // ── Init Swiper ──────────────────────────────────────────
   const swiper = new Swiper(swiperEl, {
-    loop: true,
+    // Loop only on mobile/tablet — on desktop arrows control it
+    loop: isMobile(),
     speed: 620,
-    autoplay: {
-      delay: 4000,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true,
-    },
+
+    // Autoplay only on mobile/tablet
+    autoplay: isMobile()
+      ? { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }
+      : false,
+
     breakpoints: {
-      320: { slidesPerView: 1.2, spaceBetween: 13 },
-      768: { slidesPerView: 1.4, spaceBetween: 16 },
+      320:  { slidesPerView: 1.2, spaceBetween: 13 },
+      768:  { slidesPerView: 1.4, spaceBetween: 16 },
       1152: { slidesPerView: "auto", spaceBetween: 20 },
       1440: { slidesPerView: "auto", spaceBetween: 23 },
       1920: { slidesPerView: "auto", spaceBetween: 28 },
     },
+
     on: {
       init(sw) {
         updateActiveCard(sw.activeIndex);
@@ -718,19 +804,66 @@ if (imgPlaceholder) {
     },
   });
 
-  // ── Button clicks ────────────────────────────────────────
+  // ── Button clicks (desktop only) ─────────────────────────
   nextBtn?.addEventListener("click", () => swiper.slideNext());
   prevBtn?.addEventListener("click", () => swiper.slidePrev());
 
-  // ── Recalculate on resize ────────────────────────────────
+  // ── Resize: reinit swiper when crossing lg breakpoint ────
   let resizeTimer;
+  let wasOnMobile = isMobile();
+
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => positionNextArrow(swiper), 100);
+    resizeTimer = setTimeout(() => {
+      const onMobile = isMobile();
+
+      // If breakpoint crossed — destroy and reinit with correct config
+      if (onMobile !== wasOnMobile) {
+        wasOnMobile = onMobile;
+        swiper.destroy(true, true);
+
+        // Reinit with updated loop/autoplay based on new viewport
+        const newSwiper = new Swiper(swiperEl, {
+          loop: onMobile,
+          speed: 620,
+          autoplay: onMobile
+            ? { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }
+            : false,
+          breakpoints: {
+            320:  { slidesPerView: 1.2, spaceBetween: 13 },
+            768:  { slidesPerView: 1.4, spaceBetween: 16 },
+            1152: { slidesPerView: "auto", spaceBetween: 20 },
+            1440: { slidesPerView: "auto", spaceBetween: 23 },
+            1920: { slidesPerView: "auto", spaceBetween: 28 },
+          },
+          on: {
+            init(sw) {
+              updateActiveCard(sw.activeIndex);
+              updateProgress(sw.activeIndex);
+              updateArrows(sw);
+              setTimeout(() => positionNextArrow(sw), 60);
+            },
+            slideChange(sw) {
+              updateActiveCard(sw.activeIndex);
+              updateProgress(sw.activeIndex);
+              updateArrows(sw);
+              setTimeout(() => positionNextArrow(sw), 30);
+            },
+          },
+        });
+
+        nextBtn?.addEventListener("click", () => newSwiper.slideNext());
+        prevBtn?.addEventListener("click", () => newSwiper.slidePrev());
+
+      } else {
+        // Same breakpoint zone — just reposition arrow
+        positionNextArrow(swiper);
+      }
+    }, 100);
   });
 })();
 
-// ─── FULL MENU OVERLAY ───────
+// ─── FULL MENU OVERLAY ───────────────────────────────────────
 (function () {
   const overlay     = document.getElementById("fullMenuOverlay");
   const menuTrigger = document.getElementById("menuTrigger");
@@ -748,7 +881,10 @@ if (imgPlaceholder) {
   const previewImg = document.getElementById("fmoPreviewImg");
   const fmoLeft    = overlay?.querySelector(".fmo-left");
 
-  // ── Open / Close ─────────────
+  // declare lodgesOpen at top so closeMenu can access it
+  let lodgesOpen = false;
+
+  // ── Open / Close ─────────────────────────────────────────
   function openMenu() {
     if (!overlay) return;
     overlay.classList.add("active");
@@ -759,16 +895,15 @@ if (imgPlaceholder) {
     if (!overlay) return;
     overlay.classList.remove("active");
     document.body.style.overflow = "";
+    lodgesOpen = false;
 
-    // Full reset
     fmoLeft?.classList.remove("has-active", "dropdown-open");
     overlay.querySelectorAll(".fmo-primary-item").forEach((item) => {
-      item.classList.remove("is-active", "is-blurred");
+      item.classList.remove("is-active", "is-blurred", "is-dropdown-hidden");
     });
     overlay.querySelectorAll(".fmo-submenu").forEach((sub) => {
       sub.classList.remove("open");
     });
-    lodgesOpen = false;
   }
 
   menuTrigger?.addEventListener("click", (e) => {
@@ -781,6 +916,7 @@ if (imgPlaceholder) {
     if (e.key === "Escape") closeMenu();
   });
 
+  // ── Primary link hover ────────────────────────────────────
   if (overlay && fmoLeft) {
     const primaryItems = overlay.querySelectorAll(".fmo-primary-item");
 
@@ -788,7 +924,6 @@ if (imgPlaceholder) {
       const link = item.querySelector(".fmo-primary-link");
 
       link?.addEventListener("mouseenter", () => {
-        // Skip hover changes when dropdown is open
         if (lodgesOpen) return;
 
         fmoLeft.classList.add("has-active");
@@ -801,7 +936,6 @@ if (imgPlaceholder) {
         item.classList.remove("is-blurred");
         item.classList.add("is-active");
 
-        // Swap preview image
         if (previewImg && linkImages[idx]) {
           previewImg.style.opacity = "0";
           setTimeout(() => {
@@ -812,11 +946,8 @@ if (imgPlaceholder) {
       });
     });
 
-    // Reset when mouse leaves entire left column
     fmoLeft.addEventListener("mouseleave", () => {
-      // Don't reset if dropdown is open — keep lodge item active
       if (lodgesOpen) return;
-
       fmoLeft.classList.remove("has-active");
       primaryItems.forEach((i) => {
         i.classList.remove("is-active", "is-blurred");
@@ -824,25 +955,22 @@ if (imgPlaceholder) {
     });
   }
 
-  const lodgesItem    = document.getElementById("fmoLodges");
-  const lodgesMenu    = document.getElementById("fmoLodgesMenu");
-  const lodgesTrigger = lodgesItem?.querySelector(".fmo-dropdown-trigger");
-  const primaryItems  = overlay?.querySelectorAll(".fmo-primary-item") ?? [];
+  const lodgesItem = document.getElementById("fmoLodges");
+  const lodgesMenu = document.getElementById("fmoLodgesMenu");
+ const lodgesTriggers = lodgesItem?.querySelectorAll(".fmo-dropdown-trigger");
 
-  let lodgesOpen = false;
+  const primaryItems = overlay?.querySelectorAll(".fmo-primary-item") ?? [];
 
-  lodgesTrigger?.addEventListener("click", (e) => {
-    e.preventDefault();
+  function toggleLodges() {
     lodgesOpen = !lodgesOpen;
 
     if (lodgesOpen) {
-      // Open state
       lodgesMenu?.classList.add("open");
       lodgesItem?.classList.add("is-active");
       lodgesItem?.classList.remove("is-blurred");
       fmoLeft?.classList.add("has-active", "dropdown-open");
 
-      // Hide every other primary item
+      // Hide all other primary items
       primaryItems.forEach((item) => {
         if (item !== lodgesItem) {
           item.classList.add("is-dropdown-hidden");
@@ -851,18 +979,22 @@ if (imgPlaceholder) {
       });
 
     } else {
-      // Close state — restore neutral
       lodgesMenu?.classList.remove("open");
       lodgesItem?.classList.remove("is-active");
       fmoLeft?.classList.remove("has-active", "dropdown-open");
 
       primaryItems.forEach((item) => {
-        item.classList.remove(
-          "is-active",
-          "is-blurred",
-          "is-dropdown-hidden"
-        );
+        item.classList.remove("is-active", "is-blurred", "is-dropdown-hidden");
       });
     }
+  }
+
+  // FIX 4: loop over ALL triggers and attach the SAME toggle function
+  lodgesTriggers?.forEach((trigger) => {
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggleLodges();
+    });
   });
+
 })();

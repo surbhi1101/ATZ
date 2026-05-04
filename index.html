@@ -30,9 +30,9 @@
 
                     <!-- This is the hidden menu -->
                     <div class="dropdown-menu">
-                        <a href="/luxury">Luxury Lodges</a>
-                        <a href="/boutique">Boutique Hotels</a>
-                        <a href="/budget">Budget Stays</a>
+                        <a href="#">Luxury Lodges</a>
+                        <a href="#">Boutique Hotels</a>
+                        <a href="#">Budget Stays</a>
                     </div>
                 </div>
                 <div class="nav-link-item">
@@ -48,13 +48,13 @@
             </div>
 
             <div class="nav-cta">
-                <button class="btn-plan">Plan My Trip</button>
+                <a href="#" class="btn-plan">Plan My Trip</a>
             </div>
             <div class="left-side-nav  mobile-btn">
                 <div class="nav-hamburger" id="hamburgerBtn">
                     <img src="./assets/images/submenu.png" alt="submenu">
                 </div>
-                <button class="btn-plan">Plan My Trip</button>
+                <a href="#" class="btn-plan">Plan My Trip</a>
             </div>
         </div>
         <div class="mobile-menu" id="mobileMenu">
@@ -65,10 +65,8 @@
             </div>
         </div>
     </nav>
-    <!--  FULL MENU OVERLAY-->
     <div class="full-menu-overlay" id="fullMenuOverlay">
     
-        <!-- TOP BAR -->
         <div class="fmo-topbar">
             <div class="fmo-logo-wrap">
                 <img src="./assets/images/navlogo.png" alt="ATZ Collections">
@@ -80,25 +78,19 @@
                 <span>Close</span>
             </button></div>
             <div class="fmo-cta-wrap">
-                <button class="btn-plan">Plan My Trip</button>
+                <a href="#" class="btn-plan">Plan My Trip</a>
             </div>
         </div>
     
-        <!-- CONTENT GRID: Left | Center | Right -->
         <div class="fmo-content">
-    
-            <!-- LEFT: Primary nav items -->
-            <div class="fmo-left">
-    
-                <!-- Lodges & Hotels — with dropdown -->
-                <div class="fmo-primary-item fmo-item--has-dropdown" id="fmoLodges">
-                    <div class="fmo-primary-link-wrap">
-                        <a href="#" class="fmo-primary-link fmo-dropdown-trigger" data-target="fmoLodgesMenu">
-                            Lodges And Hotels
-                        </a>
-                        <span class="fmo-dropdown-chevron fmo-dropdown-trigger"  id="fmoLodges" >↓</span>
-                    </div>
-    
+    <div class="fmo-left">
+<div class="fmo-primary-item fmo-item--has-dropdown" id="fmoLodges">
+    <div class="fmo-primary-link-wrap">
+        <a href="#" class="fmo-primary-link fmo-dropdown-trigger" data-target="fmoLodgesMenu">
+            Lodges And Hotels
+        </a>
+            <img src="./assets/images/nav-dropdown.svg" class="fmo-dropdown-chevron fmo-dropdown-trigger" alt="toggle" />
+            </div>
                     <div class="fmo-submenu" id="fmoLodgesMenu">
                         <div class="fmo-submenu-item">
                             <div class="fmo-submenu-location"><span>Sabi Sand and Kruger National Park</span></div>
@@ -113,10 +105,11 @@
                             <div class="fmo-submenu-name"><a href="#">Marataba Game Lodges</a></div>
                         </div>
                         <div class="fmo-submenu-item">
-                            <div class="fmo-submenu-location"><span>Cape Town</span></div>
+                        <div class="fmo-submenu-location"><span>Cape Town</span></div>
                             <div class="fmo-submenu-name"><a href="#">Cape Cadogan Boutique Hotel</a></div>
                         </div>
-                    </div>
+                        </div>  
+
                 </div>
     
                 <div class="fmo-primary-item">
@@ -143,9 +136,7 @@
                     </div>
                 </div>
     
-            </div><!-- /fmo-left -->
-    
-            <!-- CENTER: Gold divider line + portrait image -->
+            </div>
             <div class="fmo-center">
                 <div class="fmo-gold-line"></div>
                 <div class="fmo-image-wrap" id="fmoImageWrap">
@@ -154,7 +145,6 @@
                 </div>
             </div>
     
-            <!-- RIGHT: Secondary links -->
             <div class="fmo-right">
                 <div class="fmo-secondary-item"><a href="#">Our Story</a></div>
                 <div class="fmo-secondary-item"><a href="#">Rates</a></div>
@@ -164,18 +154,15 @@
                 <div class="fmo-secondary-item"><a href="#">Contact Us</a></div>
             </div>
     
-        </div><!-- /fmo-content -->
-    
-    </div><!-- /full-menu-overlay -->
+        </div>
+    </div>
     <main>
 
         <!-- HERO SECTION -->
         <header class="hero-section">
             <div class="hero-bg">
                 <img src="./assets/images/mobile-hero.png" alt="Leopard resting on tree" class="hero-img-mobile" />
-
-                <!-- Tablet/Desktop Image (768+) -->
-                <img src="./assets/images/hero-section.jpg" alt="Leopard resting on tree" class="hero-img-laptop" />
+ <img src="./assets/images/hero-section.jpg" alt="Leopard resting on tree" class="hero-img-laptop" />
                 <div class="hero-overlay"></div>
             </div>
 
@@ -206,7 +193,7 @@
                 </div>
 
                 <div class="story-cta">
-                    <button class="btn-story">Our Story</button>
+                    <a href="#" class="btn-story">Our Story</a>
                 </div>
             </div>
         </section>
@@ -219,7 +206,7 @@
                     </div>
                     <div class="lodges-view-toggle">
                         <div class="view-btn active" id="listViewBtn">
-                            <img src="./assets/images/list.svg" alt="">
+                            <img src="./assets/images/list.svg" alt="list">
                             <span>List View</span>
                         </div>
                         <div class="view-btn" id="mapViewBtn">
@@ -228,15 +215,9 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Slider wrapper — clips overflow -->
-                <div class="lodges-slider-wrap">
-
-                    <!-- Scrollable track -->
-                    <div class="lodges-track" id="lodgesTrack">
-
-                        <!-- Card 1 -->
-                        <div class="lodge-card">
+<div class="lodges-slider-wrap">
+ <div class="lodges-track" id="lodgesTrack">
+     <div class="lodge-card">
                             <div class="lodge-card-img">
                                 <img src="./assets/images/lodges1.jpg" alt="Ivory Lodge" />
                             </div>
@@ -261,9 +242,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Card 2 -->
-                        <div class="lodge-card">
+   <div class="lodge-card">
                             <div class="lodge-card-img">
                                 <img src="./assets/images/lodges2.jpg" alt="Marataba Mountain Lodge" />
                             </div>
@@ -288,9 +267,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Card 3 -->
-                        <div class="lodge-card">
+    <div class="lodge-card">
                             <div class="lodge-card-img">
                                 <img src="./assets/images/travel3.jpg" alt="Marataba Safari Lodge" />
                             </div>
@@ -315,9 +292,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Card 4 -->
-                        <div class="lodge-card">
+   <div class="lodge-card">
                             <div class="lodge-card-img">
                                 <img src="./assets/images/lodges1.jpg" alt="Lion Sands River Lodge" />
                             </div>
@@ -342,9 +317,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Card 5 -->
-                        <div class="lodge-card">
+   <div class="lodge-card">
                             <div class="lodge-card-img">
                                 <img src="./assets/images/lodges2.jpg" alt="Tinga Private Game Lodge" />
                             </div>
@@ -369,9 +342,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Card 6 -->
-                        <div class="lodge-card">
+   <div class="lodge-card">
                             <div class="lodge-card-img">
                                 <img src="./assets/images/travel3.jpg" alt="Phinda Rock Lodge" />
                             </div>
@@ -540,80 +511,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="swiper-slide exp-slide">
-                                <div class="exp-card exp-card--active">
-                                    <div class="exp-card-img">
-                                        <img src="./assets/images/Experience1.png" alt="Safaris" />
-                                    </div>
-                                    <div class="exp-card-overlay">
-                                        <div class="exp-card-top">
-                                            <div class="exp-card-title-wrap">
-                                                <h3>Safaris</h3>
-                                            </div>
-                                        </div>
-                                        <div class="exp-card-bottom">
-                                            <div class="exp-card-desc-wrap">
-                                                <p>Excepteur efficient emerging, minim veniam anim aute carefully
-                                                    curated Ginza
-                                                    conversation exquisite perfect nostrud nisi intricate Content.</p>
-                                            </div>
-                                            <div class="exp-card-lodge-wrap"><span>Marataba Game Lodge</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide exp-slide">
-                                <div class="exp-card">
-                                    <div class="exp-card-img">
-                                        <img src="./assets/images/Experience2.jpg" alt="Treehouses" />
-                                    </div>
-                                    <div class="exp-card-overlay">
-                                        <div class="exp-card-top">
-                                            <div class="exp-card-title-wrap">
-                                                <h3>Treehouses</h3>
-                                            </div>
-                                        </div>
-                                        <div class="exp-card-bottom">
-                                            <div class="exp-card-desc-wrap exp-card-desc-wrap--hidden">
-                                                <p>Excepteur efficient emerging, minim veniam anim aute carefully
-                                                    curated Ginza
-                                                    conversation exquisite perfect nostrud nisi intricate Content.</p>
-                                            </div>
-                                            <div class="exp-card-lodge-wrap"><span>Marataba Game Lodge</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide exp-slide">
-                                <div class="exp-card">
-                                    <div class="exp-card-img">
-                                        <img src="./assets/images/experience3.jpg" alt="Spa And Wellness" />
-                                    </div>
-                                    <div class="exp-card-overlay">
-                                        <div class="exp-card-top">
-                                            <div class="exp-card-title-wrap">
-                                                <h3>Spa And Wellness</h3>
-                                            </div>
-                                        </div>
-                                        <div class="exp-card-bottom">
-                                            <div class="exp-card-desc-wrap exp-card-desc-wrap--hidden">
-                                                <p>Excepteur efficient emerging, minim veniam anim aute carefully
-                                                    curated Ginza
-                                                    conversation exquisite perfect nostrud nisi intricate Content.</p>
-                                            </div>
-                                            <div class="exp-card-lodge-wrap"><span>Marataba Game Lodge</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
+
+            </div>
                 <div class="exp-progress-wrap">
                     <div class="exp-progress-bar" id="expProgressBar"></div>
                 </div>
-
-            </div>
         </section>
         <!--PLAN MY AFRICAN JOURNEY -->
         <section class="plan-section fade-section" id="plan-journey">
@@ -684,7 +589,6 @@
                                 <div class="dest-card-label-wrap"><span>Zimbabwe</span></div>
                             </div>
                         </div>
-
                         <div class="dest-card dest-card--zambia">
                             <div class="dest-card-img">
                                 <img src="./assets/images/Destination5.png" alt="Zambia" />
@@ -693,9 +597,7 @@
                                 <div class="dest-card-label-wrap"><span>Zambia</span></div>
                             </div>
                         </div>
-
-                    </div><!-- /dest-grid -->
-
+                    </div>
                 </div>
             </div>
         </section>
@@ -729,7 +631,7 @@
 
                             <div class="journey-card journey-card--featured">
                                 <div class="journey-card-img-wrap">
-                                    <img src="./assets/images/Journey1.jpg" />
+                                    <img src="./assets/images/Journey1.jpg" alt="journey-image" />
                                 </div>
                                 <div class="journey-card-body">
                                     <div class="journey-nights-wrap">
@@ -1170,13 +1072,13 @@
                 <div class="stories-slider-outer">
                     <div class="stories-prev-wrap" id="storiesPrevWrap">
                         <button class="lodges-arrow-btn" id="storiesPrevBtn">
-                            <img src="./assets/images/left-arrow.png">
+                            <img src="./assets/images/left-arrow.png" alt="left-arrow">
                         </button>
                     </div>
 
                     <div class="stories-next-wrap" id="storiesNextWrap">
                         <button class="lodges-arrow-btn" id="storiesNextBtn">
-                            <img src="./assets/images/right-arrow.png">
+                            <img src="./assets/images/right-arrow.png" alt="right-arrow">
                         </button>
                     </div>
                     <div class="stories-track" id="storiesTrack">
@@ -1321,7 +1223,7 @@
                         <p> emerging</p>
                     </div>
                     <div class="footer-cta-wrap footer-desk-btn">
-                        <button class="btn-plan-footer">Plan My Trip</button>
+                        <a href="#" class="btn-plan-footer">Plan My Trip</a>
                     </div>
                 </div>
                 <div class="footer-nav-cols">
@@ -1412,7 +1314,7 @@
             </div>
         </div>
     <div class="footer-cta-wrap  footer-mobile-btn">
-        <button class="btn-plan-footer">Plan My Trip</button>
+        <a href="#" class="btn-plan-footer">Plan My Trip</a>
     </div>
            <div class="footer-divider-wrap footer-desk-btn">
             <div class="footer-divider"></div>

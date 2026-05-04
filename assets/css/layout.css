@@ -26,6 +26,10 @@
     @apply absolute inset-0;
   }
 
+  .hero-bg img {
+    @apply !h-full w-full;
+  }
+
   .hero-img {
     @apply w-full h-full object-cover;
     object-position: center 30%;
@@ -70,10 +74,10 @@
 
   .story-inner {
     @apply w-full flex flex-col items-center justify-center text-center
-           gap-9 md:gap-11 lg:gap-[52px] xl:max-w-[1000px] 2xl:max-w-[1200px] px-[25px] 
+           gap-9 md:gap-11 lg:gap-6  2xl:max-w-[1200px] px-[25px] 
+           lg:px-0 max-w-[800px] xl:max-w-[954px]
            
            pt-[105px] pb-[108px] xl:py-[112px];
-    max-width: 900px;
   }
 
   /* ─── LODGES SECTION LAYOUT ──────────────────────────────── */
@@ -152,25 +156,21 @@ xl:pl-[65px] xl:pt-[127px]
       height: 680px;
     }
   }
-  /* Swiper overflows the wrap so peeking cards show */
   .exp-swiper {
     @apply relative w-full h-full;
     overflow: visible !important;
   }
   .exp-inner {
     @apply w-full flex flex-col gap-5 lg:gap-[49px]
-    pl-6
+    ml-6
     md:pl-10
-    xl:pl-[65px]
-    2xl:pl-[100px];
+    xl:ml-[65px]
+    2xl:ml-[100px];
   }
   .exp-swiper-wrap {
     @apply relative;
-    /* Must match .exp-card height at each breakpoint */
     height: 420px;
   }
-
-  /* Swiper overflows so peeking cards show beyond padding */
   .exp-swiper {
     @apply relative w-full;
     overflow: visible !important;
@@ -235,7 +235,6 @@ xl:pl-[65px] xl:pt-[127px]
   .exp-next-wrap {
     @apply absolute top-1/2 -translate-y-1/2 z-30;
     pointer-events: all;
-    /* left is set by JS */
   }
 
   .exp-swiper-wrap .hidden {
@@ -243,16 +242,17 @@ xl:pl-[65px] xl:pt-[127px]
   }
   /* Progress bar */
   .exp-progress-wrap {
-    @apply w-full mt-[10px] md:mt-8 lg:mt-0;
+    @apply w-full mt-[30px] md:mt-8 lg:mt-[49px]   !px-6 lg:!px-[65px];
     height: 2px;
-    background-color: #e0dad2;
+    background-color: #cccccc;
     border-radius: 1px;
   }
 
   .exp-progress-bar {
     @apply h-full;
-    background-color: #1a1a1a;
-    border-radius: 1px;
+    background-color: #80715c;
+    border-radius: 1.7px;
+    transform: scaleX(0.2);
     width: 20%;
     transition: width 0.45s ease;
   }
@@ -473,11 +473,7 @@ STORIES SECTION LAYOUT
   }
   .stories-left {
     @apply flex flex-col w-full xl:mt-[168px] gap-5 xl:gap-[30px] 2xl:gap-[32px];
-    @apply w-[346px];
-  }
-
-  .stories-heading-wrap {
-    /* @apply mb-4 md:mb-5 lg:mb-6; */
+    @apply md:w-[346px];
   }
 
   .stories-desc-wrap {

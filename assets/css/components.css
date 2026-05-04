@@ -123,7 +123,7 @@
 
   /* ── Content grid: 3 columns ── */
   .fmo-content {
-    @apply flex flex-1 gap-8;
+    @apply flex flex-1 gap-8 pl-10 xl:pl-[78px];
   }
 
   /* ── LEFT column ── */
@@ -136,12 +136,12 @@
   }
 
   .fmo-primary-link-wrap {
-    @apply flex items-center gap-3;
+    @apply flex items-center gap-6;
   }
 
   .fmo-primary-link {
     font-family: var(--font-Times);
-    @apply font-normal !text-[#262633] font-normal leading-[38px] tracking-[2%] text-[48px];
+    @apply font-normal !text-[#262633] font-normal leading-[38px] tracking-[2%] text-[32px] xl:text-[48px];
     text-decoration: none;
     transition: color 0.3s ease;
   }
@@ -158,16 +158,7 @@
   }
 
   .fmo-dropdown-chevron {
-    font-family: var(--font-Times);
-    @apply text-[#262633] text-[28px] font-normal leading-none;
-    opacity: 0.3;
-    transition:
-      opacity 0.3s ease,
-      transform 0.3s ease;
-  }
-
-  .fmo-primary-item.is-active .fmo-dropdown-chevron {
-    opacity: 1;
+    @apply h-[21px] w-[18px];
   }
 
   /* ── Lodges submenu ── */
@@ -191,7 +182,7 @@
   }
 
   .fmo-submenu-item {
-    @apply flex flex-col gap-[10px];
+    @apply flex flex-col text-center gap-[10px];
   }
 
   .fmo-submenu-location span {
@@ -201,7 +192,7 @@
 
   .fmo-submenu-name a {
     font-family: var(--font-Times);
-    @apply font-normal !text-[#80715C] tracking-[2%] leading-[38px] text-[28px] no-underline;
+    @apply font-normal !text-[#80715C] tracking-[2%] leading-[38px] text-[24px] xl:text-[28px] no-underline;
     transition: color 0.2s ease;
   }
 
@@ -228,7 +219,7 @@
 
   /* Portrait image — sits on top of the gold line */
   .fmo-image-wrap {
-    @apply relative z-[1] !max-w-[334px];
+    @apply relative z-[1];
   }
 
   .fmo-preview-img {
@@ -267,7 +258,7 @@
       filter 0.3s ease;
   }
   .nav-links {
-    @apply hidden lg:flex lg:items-center lg:gap-2 xl:gap-6;
+    @apply hidden lg:flex lg:items-center lg:gap-6;
   }
 
   .nav-link-item {
@@ -373,14 +364,14 @@
     font-family: var(--font-open);
   }
   .hero-heading-wrap {
-    @apply xl:max-w-[776px];
+    @apply max-w-[700px] xl:max-w-[776px];
   }
   .hero-heading-wrap h1 {
     @apply font-normal leading-[46px] xl:leading-[70px]  tracking-[2%] text-[36px] lg:text-[42px] xl:text-[60px] text-white;
     font-family: var(--font-Times);
   }
   .watch-link {
-    @apply inline-flex items-center gap-[6px] opacity-[0.88] transition-opacity duration-[250ms];
+    @apply inline-flex gap-[6px] transition-opacity duration-[250ms];
     color: var(--color-cream);
   }
 
@@ -404,6 +395,7 @@
     @apply w-full;
   }
   .story-text-wrap p {
+    @apply leading-[130%];
     color: #444451;
     transition: color 0.6s ease;
   }
@@ -439,7 +431,7 @@
     font-family: var(--font-Times);
   }
   .lodges-view-toggle {
-    @apply flex items-center gap-6 mr-[25px] lg:mr-[66px];
+    @apply flex items-center gap-[31px] mr-[25px] lg:mr-[66px];
   }
 
   .view-btn {
@@ -516,6 +508,7 @@
   }
   .lodge-card-img {
     @apply overflow-hidden  lg:w-full lg:h-full;
+    border-radius: 2px;
     aspect-ratio: 4 / 3;
   }
 
@@ -648,8 +641,7 @@
   .btn-find-out {
     font-family: var(--font-open);
     @apply text-[14px] xl:text-[16px] tracking-[4%] leading-[24px] uppercase 
-    px-4 py-2 xl:px-[18px] xl:py-[10px] bg-white text-[#262633];
-    @apply w-fit font-light;
+    px-4 py-2 xl:px-[18px] xl:py-[10px] bg-white text-[#262633] w-fit font-light;
     border-radius: 100px;
     transition:
       background-color 0.3s ease,
@@ -686,6 +678,7 @@
 
   .exp-card-img img {
     @apply w-full h-full object-cover;
+    border-radius: 2px;
     transition: transform 0.7s ease;
   }
 
@@ -757,8 +750,7 @@
   }
   /* Arrow Button */
   .exp-arrow-btn {
-    @apply w-[44px] h-[44px] rounded-full 
-         bg-[rgba(26,34,24,0.8)] backdrop-blur-[6px]
+    @apply w-[44px] h-[44px] 
          flex items-center justify-center
          cursor-pointer border-none
          transition-all duration-300 ease-in-out;
@@ -766,7 +758,7 @@
 
   /* Image inside button */
   .exp-arrow-btn img {
-    @apply w-[18px] h-[18px] object-contain;
+    @apply w-[34px] h-[34px] object-contain;
   }
   @media (min-width: 1152px) {
     .exp-swiper .swiper-slide {
@@ -1403,7 +1395,7 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
     max-width: 1920px;
   }
   .footer-nav-cols {
-    @apply flex gap-[48px];
+    @apply flex flex-col gap-[48px];
   }
 
   /* Brand column */

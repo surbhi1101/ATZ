@@ -62,7 +62,7 @@
   }
 
   .dropdown-menu a {
-    @apply text-gray-700 px-5 py-3 no-underline block hover:bg-gray-50 hover:text-black transition-colors;
+    @apply text-gray-700 px-5 py-3 no-underline block hover:!bg-gray-50 hover:!text-black transition-colors;
   }
 
   .logo-text {
@@ -1512,7 +1512,7 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
   }
 
   .footer-divider {
-    @apply w-full px-10;
+    @apply w-full lg:!px-10;
     height: 1px;
     background-color: white;
   }

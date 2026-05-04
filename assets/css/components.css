@@ -132,7 +132,7 @@
   }
 
   .fmo-primary-item {
-    @apply flex flex-col gap-[26px];
+    @apply flex flex-col;
   }
 
   .fmo-primary-link-wrap {
@@ -185,6 +185,7 @@
   }
 
   .fmo-submenu.open {
+    @apply mt-[26px];
     max-height: 500px;
     opacity: 1;
   }

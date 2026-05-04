@@ -89,7 +89,7 @@ xl:pl-[65px] xl:pt-[127px]
 2xl:pl-[120px] 2xl:pt-24;
   }
   .lodges-header {
-    @apply flex items-center gap-20 lg:justify-between;
+    @apply flex items-center gap-20 justify-between;
   }
   .lodges-slider-wrap {
     @apply relative w-full;
@@ -120,11 +120,146 @@ xl:pl-[65px] xl:pt-[127px]
   .lodges-counter-inner {
     @apply flex items-center;
   }
+  /* ─── EXPERIENCES SECTION LAYOUT ────────────────────────── */
 
+  .exp-section {
+    @apply w-full;
+    overflow: hidden;
+  }
+
+  /* Wrap is the positioning context — NO overflow */
+  .exp-swiper-wrap {
+    @apply relative;
+    height: 420px;
+  }
+  @media (min-width: 768px) {
+    .exp-swiper-wrap {
+      height: 480px;
+    }
+  }
+  @media (min-width: 1152px) {
+    .exp-swiper-wrap {
+      height: 540px;
+    }
+  }
+  @media (min-width: 1440px) {
+    .exp-swiper-wrap {
+      height: 600px;
+    }
+  }
+  @media (min-width: 1920px) {
+    .exp-swiper-wrap {
+      height: 680px;
+    }
+  }
+  /* Swiper overflows the wrap so peeking cards show */
+  .exp-swiper {
+    @apply relative w-full h-full;
+    overflow: visible !important;
+  }
+  .exp-inner {
+    @apply w-full flex flex-col gap-5 lg:gap-[49px]
+    pl-6
+    md:pl-10
+    xl:pl-[65px]
+    2xl:pl-[100px];
+  }
+  .exp-swiper-wrap {
+    @apply relative;
+    /* Must match .exp-card height at each breakpoint */
+    height: 420px;
+  }
+
+  /* Swiper overflows so peeking cards show beyond padding */
+  .exp-swiper {
+    @apply relative w-full;
+    overflow: visible !important;
+  }
+  @media (min-width: 768px) {
+    .exp-swiper-wrap {
+      height: 480px;
+    }
+  }
+  @media (min-width: 1152px) {
+    .exp-swiper-wrap {
+      height: 540px;
+    }
+  }
+  @media (min-width: 1440px) {
+    .exp-swiper-wrap {
+      height: 600px;
+    }
+  }
+  @media (min-width: 1920px) {
+    .exp-swiper-wrap {
+      height: 680px;
+    }
+  }
+  .exp-card {
+    @apply relative w-full overflow-hidden;
+    height: 420px;
+    transition: all 0.55s ease;
+  }
+
+  @media (min-width: 768px) {
+    .exp-card {
+      height: 480px;
+    }
+  }
+  @media (min-width: 1152px) {
+    .exp-card {
+      height: 540px;
+    }
+  }
+  @media (min-width: 1440px) {
+    .exp-card {
+      height: 600px;
+    }
+  }
+  @media (min-width: 1920px) {
+    .exp-card {
+      height: 680px;
+    }
+  }
+
+  .exp-prev-wrap,
+  .exp-next-wrap {
+    @apply hidden lg:block absolute top-1/2 -translate-y-1/2 z-30 pointer-events-none;
+  }
+
+  .exp-prev-wrap {
+    @apply left-3;
+    pointer-events: all;
+  }
+
+  .exp-next-wrap {
+    @apply absolute top-1/2 -translate-y-1/2 z-30;
+    pointer-events: all;
+    /* left is set by JS */
+  }
+
+  .exp-swiper-wrap .hidden {
+    @apply !hidden;
+  }
+  /* Progress bar */
+  .exp-progress-wrap {
+    @apply w-full mt-[10px] md:mt-8 lg:mt-0;
+    height: 2px;
+    background-color: #e0dad2;
+    border-radius: 1px;
+  }
+
+  .exp-progress-bar {
+    @apply h-full;
+    background-color: #1a1a1a;
+    border-radius: 1px;
+    width: 20%;
+    transition: width 0.45s ease;
+  }
   /* ─── PLAN MY AFRICAN JOURNEY LAYOUT ─────────────────────── */
 
   .plan-section {
-    @apply w-full;
+    @apply w-full mt-[152px] xl:mt-[190px];
     background-color: #f7f4ef;
   }
 

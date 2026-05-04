@@ -768,12 +768,13 @@
     @apply w-[18px] h-[18px] object-contain;
   }
   @media (min-width: 1152px) {
-    .exp-swiper .swiper-slide:first-child {
-      width: 754px !important;
+    .exp-swiper .swiper-slide {
+      width: 24% !important;
+      transition: all 0.4s ease;
     }
 
-    .exp-swiper .swiper-slide:not(:first-child) {
-      width: 24% !important;
+    .exp-swiper .swiper-slide.swiper-slide-active {
+      width: 754px !important;
     }
   }
   /* ─── PLAN MY AFRICAN JOURNEY COMPONENTS ─────────────────── */
@@ -1516,7 +1517,7 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
   }
 
   .footer-divider {
-    @apply w-full lg:!px-10;
+    @apply w-full;
     height: 1px;
     background-color: white;
   }

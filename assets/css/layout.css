@@ -522,7 +522,7 @@ xl:pl-[65px] xl:pt-[127px]
   }
 
   .stories-inner {
-    @apply flex flex-col gap-[40px]  pl-6 pr-6 pt-[91px] pb-[94px]
+    @apply flex flex-col gap-[40px]  pl-6  pt-[91px] pb-[94px]
      lg:flex-row lg:items-start lg:gap-10 lg:pl-[60px] lg:pt-18 lg:pb-20 
      xl:gap-[93px] xl:pl-[64px] xl:pt-[103px] xl:pb-[131] 2xl:pl-[120px] 
      2xl:pt-24 2xl:pb-28;

@@ -126,8 +126,6 @@ xl:pl-[65px] xl:pt-[127px]
   }
   /* ─── EXPERIENCES SECTION LAYOUT ────────────────────────── */
 
-  /* ─── EXPERIENCES SECTION LAYOUT ────────────────────────── */
-
   .exp-section {
     @apply w-full overflow-hidden;
   }
@@ -523,9 +521,7 @@ xl:pl-[65px] xl:pt-[127px]
            min-h-[304px] md:min-h-[350px] lg:min-h-[600px] xl:min-h-[718px];
   }
 
-  /* ════════════════════════════════════════
-STORIES SECTION LAYOUT
-════════════════════════════════════════ */
+  /*STORIES SECTION LAYOUT*/
 
   .stories-section {
     @apply w-full;

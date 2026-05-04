@@ -685,40 +685,12 @@ if (imgPlaceholder) {
 
   if (!track) return;
 
-  const TOTAL = track.querySelectorAll(".exp-card").length;
   let current = 0;
-  let currentTranslate = 0;
-  let prevTranslate = 0;
-
-  // ✅ AUTOPLAY VARIABLES
   let autoplayInterval = null;
   const AUTOPLAY_DELAY = 3000;
 
-  function isMobileOrTablet() {
-    return window.innerWidth < 1024; // sm + md
-  }
-
-  function startAutoplay() {
-    if (!isMobileOrTablet()) return;
-
-    stopAutoplay(); // prevent duplicate intervals
-
-    autoplayInterval = setInterval(() => {
-      if (current >= maxIndex()) {
-        // 🔁 LOOP BACK
-        track.style.transition = "none";
-        goTo(0);
-      } else {
-        goTo(current + 1);
-      }
-    }, AUTOPLAY_DELAY);
-  }
-
-  function stopAutoplay() {
-    if (autoplayInterval) {
-      clearInterval(autoplayInterval);
-      autoplayInterval = null;
-    }
+  function getCards() {
+    return [...track.querySelectorAll(".exp-card")];
   }
 
   function getGap() {
@@ -726,15 +698,19 @@ if (imgPlaceholder) {
     return parseFloat(style.columnGap) || parseFloat(style.gap) || 0;
   }
 
-  function getCards() {
-    return [...track.querySelectorAll(".exp-card")];
+  function TOTAL() {
+    return getCards().length;
   }
 
-  // Sum actual rendered widths of cards before index
+  function isDesktop() {
+    return window.innerWidth >= 1152;
+  }
+
+  // ── After DOM update, calculate offset to card[index] ──
   function getOffsetForIndex(index) {
     const cards = getCards();
-    const gap = getGap();
-    let offset = 0;
+    const gap   = getGap();
+    let offset  = 0;
     for (let i = 0; i < index; i++) {
       offset += cards[i].offsetWidth + gap;
     }
@@ -743,40 +719,17 @@ if (imgPlaceholder) {
 
   function getTotalTrackWidth() {
     const cards = getCards();
-    const gap = getGap();
+    const gap   = getGap();
     return cards.reduce((sum, c) => sum + c.offsetWidth + gap, 0) - gap;
   }
 
-  function maxIndex() {
-    const cards = getCards();
-    const gap = getGap();
-    const wrapW = track.parentElement.offsetWidth;
-    let totalW = 0;
-
-    for (let i = TOTAL - 1; i >= 0; i--) {
-      totalW += cards[i].offsetWidth + (i < TOTAL - 1 ? gap : 0);
-      if (totalW >= wrapW) return i;
-    }
-
-    return TOTAL - 1;
-  }
-
-  function updateArrows() {
-    prevWrap.classList.toggle("hidden", current <= 0);
-    nextWrap.classList.toggle("hidden", current >= maxIndex());
-  }
-
-  function updateProgress() {
-    if (!progressBar) return;
-    progressBar.style.width = ((current + 1) / TOTAL) * 100 + "%";
-  }
-
-  function updateActiveCard() {
+  // ── Update active card CSS classes ──────────────────────
+  function updateActiveCard(index) {
     getCards().forEach((card, i) => {
-      const desc   = card.querySelector(".exp-card-desc-wrap");
-      const lodge  = card.querySelector(".exp-card-lodge-wrap");
+      const desc  = card.querySelector(".exp-card-desc-wrap");
+      const lodge = card.querySelector(".exp-card-lodge-wrap");
 
-      if (i === current) {
+      if (i === index) {
         card.classList.add("exp-card--active");
         desc?.classList.remove("exp-card-desc-wrap--hidden");
         lodge?.classList.remove("exp-card-lodge-wrap--hidden");
@@ -788,56 +741,117 @@ if (imgPlaceholder) {
     });
   }
 
-  function goTo(index) {
-    current = Math.min(Math.max(0, index), maxIndex());
+  // ── Update arrows ────────────────────────────────────────
+  function updateArrows() {
+    if (!isDesktop()) {
+      prevWrap?.classList.add("hidden");
+      nextWrap?.classList.add("hidden");
+      return;
+    }
+    prevWrap?.classList.toggle("hidden", current <= 0);
+    // Always show next unless truly at last card
+    nextWrap?.classList.toggle("hidden", current >= TOTAL() - 1);
+  }
 
-    updateActiveCard();
+  // ── Update progress bar ──────────────────────────────────
+  function updateProgress() {
+    if (!progressBar) return;
+    progressBar.style.width = ((current + 1) / TOTAL()) * 100 + "%";
+  }
 
+  // ── Core: go to a specific index ─────────────────────────
+  function goTo(index, animate = true) {
+    const total = TOTAL();
+
+    // Clamp — allow all cards to become active
+    current = Math.min(Math.max(0, index), total - 1);
+
+    // Step 1: update active class (changes card widths on desktop)
+    updateActiveCard(current);
+
+    // Step 2: wait one frame for width change to apply, then translate
     requestAnimationFrame(() => {
-      let offset = getOffsetForIndex(current);
-      const wrapW = track.parentElement.offsetWidth;
-      const maxOffset = Math.max(0, getTotalTrackWidth() - wrapW);
-      offset = Math.min(offset, maxOffset);
+      requestAnimationFrame(() => {
+        const wrapW     = track.parentElement.offsetWidth;
+        let offset      = getOffsetForIndex(current);
+        const maxOffset = Math.max(0, getTotalTrackWidth() - wrapW);
+        offset          = Math.min(offset, maxOffset);
 
-      prevTranslate = -offset;
-      currentTranslate = -offset;
+        track.style.transition = animate ? "transform 0.45s ease" : "none";
+        track.style.transform  = `translateX(-${offset}px)`;
 
-      track.style.transition = "transform 0.45s ease";
-      track.style.transform = `translateX(-${offset}px)`;
-
-      updateArrows();
-      updateProgress();
+        updateArrows();
+        updateProgress();
+      });
     });
   }
 
-  // ✅ BUTTON EVENTS (with autoplay control)
+  // ── Autoplay: cycles through ALL cards then loops ────────
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayInterval = setInterval(() => {
+      const next = current + 1;
+      if (next >= TOTAL()) {
+        // Silently jump to start, then resume from 0
+        track.style.transition = "none";
+        track.style.transform  = "translateX(0)";
+        current = 0;
+        updateActiveCard(0);
+        updateArrows();
+        updateProgress();
+        // Re-enable transition next frame
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            track.style.transition = "transform 0.45s ease";
+          });
+        });
+      } else {
+        goTo(next);
+      }
+    }, AUTOPLAY_DELAY);
+  }
+
+  function stopAutoplay() {
+    if (autoplayInterval) {
+      clearInterval(autoplayInterval);
+      autoplayInterval = null;
+    }
+  }
+
+  // ── Button events ─────────────────────────────────────────
   nextBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
     stopAutoplay();
-    goTo(current + 1);
+    goTo(current + 1 >= TOTAL() ? 0 : current + 1);
+    startAutoplay();
   });
 
   prevBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
     stopAutoplay();
-    goTo(current - 1);
+    goTo(current - 1 < 0 ? TOTAL() - 1 : current - 1);
+    startAutoplay();
   });
 
-  // ─── DRAG / TOUCH ──────────────────────────────────────
+  // ── Touch / Drag ──────────────────────────────────────────
   let isDragging = false;
   let startX = 0;
-  let animationFrame;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+  let animFrame;
 
   function getPositionX(e) {
     return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
   }
 
   function dragStart(e) {
-    stopAutoplay(); // ✅ stop autoplay on drag
+    stopAutoplay();
     isDragging = true;
     startX = getPositionX(e);
+    prevTranslate = -(getOffsetForIndex(current));
+    currentTranslate = prevTranslate;
     track.style.transition = "none";
-    animationFrame = requestAnimationFrame(animation);
+    animFrame = requestAnimationFrame(animationLoop);
   }
 
   function dragMove(e) {
@@ -846,50 +860,38 @@ if (imgPlaceholder) {
   }
 
   function dragEnd() {
-    cancelAnimationFrame(animationFrame);
+    cancelAnimationFrame(animFrame);
     isDragging = false;
-
     const movedBy = currentTranslate - prevTranslate;
-
-    if (movedBy < -50) goTo(current + 1);
-    else if (movedBy > 50) goTo(current - 1);
-    else goTo(current);
-
-    // ✅ restart autoplay if needed
-    if (isMobileOrTablet()) startAutoplay();
+    if (movedBy < -50)     goTo(current + 1 >= TOTAL() ? 0 : current + 1);
+    else if (movedBy > 50) goTo(current - 1 < 0 ? TOTAL() - 1 : current - 1);
+    else                   goTo(current);
+    startAutoplay();
   }
 
-  function animation() {
+  function animationLoop() {
     track.style.transform = `translateX(${currentTranslate}px)`;
-    if (isDragging) requestAnimationFrame(animation);
+    if (isDragging) requestAnimationFrame(animationLoop);
   }
 
-  track.addEventListener("mousedown", dragStart);
-  track.addEventListener("mousemove", dragMove);
-  track.addEventListener("mouseup", dragEnd);
+  track.addEventListener("mousedown",  dragStart);
+  track.addEventListener("mousemove",  dragMove);
+  track.addEventListener("mouseup",    dragEnd);
   track.addEventListener("mouseleave", dragEnd);
   track.addEventListener("touchstart", dragStart, { passive: true });
-  track.addEventListener("touchmove", dragMove, { passive: true });
-  track.addEventListener("touchend", dragEnd);
+  track.addEventListener("touchmove",  dragMove,  { passive: true });
+  track.addEventListener("touchend",   dragEnd);
 
+  // ── Resize ────────────────────────────────────────────────
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      goTo(current);
-
-      if (isMobileOrTablet()) {
-        startAutoplay();
-      } else {
-        stopAutoplay();
-      }
-    }, 150);
+    resizeTimer = setTimeout(() => goTo(current), 150);
   });
 
-  // ✅ INIT
-  goTo(0);
+  // ── Init ──────────────────────────────────────────────────
+  goTo(0, false);
   startAutoplay();
-
 })();
 // ─── FULL MENU OVERLAY ───────────────────────────────────────
 (function () {

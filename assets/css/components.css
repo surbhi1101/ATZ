@@ -666,7 +666,6 @@
     @apply pb-[70px];
   }
   /* ─── EXPERIENCES SECTION COMPONENTS ────────────────────── */
-  /* ─── EXPERIENCES SECTION COMPONENTS ────────────────────── */
 
   .exp-heading-wrap h2 {
     font-family: var(--font-Times);
@@ -690,8 +689,7 @@
 
   /* ── Gradient overlay ── */
   .exp-card-overlay {
-    @apply absolute inset-0 z-[1] flex flex-col justify-between;
-    padding: 18px;
+    @apply absolute inset-0 z-[1] flex flex-col justify-between pt-[27px] pr-[18px];
     background: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0.45) 0%,
@@ -713,7 +711,9 @@
   }
   @media (min-width: 1440px) {
     .exp-card-overlay {
-      padding: 31px 32px;
+      padding-top: 31px;
+      padding-left: 32px;
+      padding-bottom: 23px;
     }
   }
 
@@ -760,7 +760,7 @@
     }
     .exp-card-desc-wrap p {
       font-family: var(--font-open);
-      @apply font-light text-white text-[16px] leading-[140%] tracking-[0%];
+      @apply font-light text-white text-[16px] leading-[140%] pr-[111px] tracking-[0%];
     }
   }
 

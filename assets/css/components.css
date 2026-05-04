@@ -666,12 +666,14 @@
     @apply pb-[70px];
   }
   /* ─── EXPERIENCES SECTION COMPONENTS ────────────────────── */
+  /* ─── EXPERIENCES SECTION COMPONENTS ────────────────────── */
 
   .exp-heading-wrap h2 {
-    @apply font-normal text-[#262633] text-[36px] tracking-[2%] leading-[44px] lg:text-[50px];
     font-family: var(--font-Times);
+    @apply font-normal text-[#262633] text-[36px] tracking-[2%] leading-[44px] lg:text-[50px];
   }
 
+  /* ── Card image fills the card ── */
   .exp-card-img {
     @apply absolute inset-0 w-full h-full;
   }
@@ -686,13 +688,14 @@
     transform: scale(1.04);
   }
 
+  /* ── Gradient overlay ── */
   .exp-card-overlay {
-    @apply absolute inset-0 z-[1] flex flex-col justify-between pt-[27px] px-[18px] lg:pt-[31px]
-    lg:px-[32px] lg:pb-[23px];
+    @apply absolute inset-0 z-[1] flex flex-col justify-between;
+    padding: 18px;
     background: linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.42) 0%,
-      rgba(0, 0, 0, 0) 30%,
+      rgba(0, 0, 0, 0.45) 0%,
+      rgba(0, 0, 0, 0) 35%,
       rgba(0, 0, 0, 0) 50%,
       rgba(0, 0, 0, 0.78) 100%
     );
@@ -700,17 +703,17 @@
 
   @media (min-width: 768px) {
     .exp-card-overlay {
-      padding: 24px;
+      padding: 20px;
     }
   }
   @media (min-width: 1152px) {
     .exp-card-overlay {
-      padding: 28px;
+      padding: 28px 32px;
     }
   }
   @media (min-width: 1440px) {
     .exp-card-overlay {
-      padding: 32px;
+      padding: 31px 32px;
     }
   }
 
@@ -718,58 +721,107 @@
     @apply flex flex-col;
   }
 
-  /* Title — always visible, smaller on non-active */
+  /* ── Title: always top-left, white ── */
   .exp-card-title-wrap h3 {
-    @apply font-normal text-white text-[24px] lg:text-[32px] leading-[38px] tracking-[2%];
-    font-family: var(--font-times);
+    font-family: var(--font-Times);
+    @apply font-normal text-white leading-[120%] tracking-[2%];
+    font-size: 20px;
   }
 
-  /* Active card: larger title matching Figma */
-  .exp-card--active .exp-card-title-wrap h3 {
-    font-size: clamp(26px, 3vw, 50px);
+  @media (min-width: 768px) {
+    .exp-card-title-wrap h3 {
+      font-size: 22px;
+    }
+  }
+
+  /* Active card on desktop: bigger title */
+  @media (min-width: 1152px) {
+    .exp-card-title-wrap h3 {
+      font-size: 28px;
+    }
+    .exp-card--active .exp-card-title-wrap h3 {
+      font-size: clamp(32px, 3vw, 50px);
+    }
   }
 
   .exp-card-bottom {
     @apply flex flex-col gap-4;
   }
 
-  /* Desc — visible only on active card */
-  .exp-card-desc-wrap p {
-    @apply hidden lg:block font-light text-white text-[16px] leading-[140%] tracking-[0%];
-    font-family: var(--font-open);
-  }
-
-  /* JS toggles this class to hide/show desc */
-  .exp-card-desc-wrap--hidden {
+  /* ── Desc: hidden on mobile/tablet, only active card on desktop ── */
+  .exp-card-desc-wrap {
     @apply hidden;
   }
 
-  .exp-card-lodge-wrap span {
-    @apply hidden lg:block font-normal text-[12px] text-white leading-[140%] tracking-[0%] uppercase;
-    font-family: var(--font-open);
-  }
-  /* Arrow Button */
-  .exp-arrow-btn {
-    @apply w-[44px] h-[44px] 
-         flex items-center justify-center
-         cursor-pointer border-none
-         transition-all duration-300 ease-in-out;
-  }
-
-  /* Image inside button */
-  .exp-arrow-btn img {
-    @apply w-[34px] h-[34px] object-contain;
-  }
   @media (min-width: 1152px) {
-    .exp-swiper .swiper-slide {
-      width: 24% !important;
-      transition: all 0.4s ease;
+    /* On desktop, desc is visible only when NOT hidden */
+    .exp-card-desc-wrap:not(.exp-card-desc-wrap--hidden) {
+      @apply block;
     }
-
-    .exp-swiper .swiper-slide.swiper-slide-active {
-      width: 754px !important;
+    .exp-card-desc-wrap p {
+      font-family: var(--font-open);
+      @apply font-light text-white text-[16px] leading-[140%] tracking-[0%];
     }
   }
+
+  .exp-card-desc-wrap--hidden {
+    @apply !hidden;
+  }
+
+  /* ── Lodge label: same visibility rules as desc ── */
+  .exp-card-lodge-wrap {
+    @apply hidden lg:block;
+  }
+
+  @media (min-width: 1152px) {
+    .exp-card-lodge-wrap:not(.exp-card-lodge-wrap--hidden) {
+      @apply block;
+    }
+    .exp-card-lodge-wrap span {
+      font-family: var(--font-open);
+      @apply font-normal text-[12px] text-white leading-[140%] tracking-[0%] uppercase;
+    }
+  }
+
+  /* ── Arrow buttons ── */
+  .exp-prev-wrap,
+  .exp-next-wrap {
+    @apply absolute top-0 z-10 hidden lg:flex items-center justify-center;
+    height: 100%;
+  }
+
+  .exp-prev-wrap {
+    @apply left-0;
+  }
+  .exp-next-wrap {
+    @apply right-2 lg:right-[20px];
+  }
+
+  /* Progress bar */
+  .exp-progress-wrap {
+    @apply w-full mt-[20px] md:mt-8 lg:mt-[49px];
+    padding-left: 24px;
+    padding-right: 24px;
+    height: 2px;
+    background-color: #cccccc;
+    border-radius: 1px;
+  }
+
+  @media (min-width: 1152px) {
+    .exp-progress-wrap {
+      padding-left: 65px;
+      padding-right: 65px;
+    }
+  }
+
+  .exp-progress-bar {
+    @apply h-full;
+    background-color: #80715c;
+    border-radius: 1.7px;
+    width: 20%; /* 1/5 slides */
+    transition: width 0.4s ease;
+  }
+
   /* ─── PLAN MY AFRICAN JOURNEY COMPONENTS ─────────────────── */
   .plan-heading-wrap h2 {
     @apply font-normal text-[#262633] text-[50px] xl:text-[64px] tracking-[2%] leading-[100%];

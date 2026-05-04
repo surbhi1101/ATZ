@@ -674,195 +674,223 @@ if (imgPlaceholder) {
     });
   });
 }
-// ─── EXPERIENCES SWIPER ────────────────────────────────────
+// ─── EXPERIENCES SLIDER ────────────────────────────────────
 (function () {
-  const swiperEl    = document.getElementById("expSwiper");
-  const nextWrap    = document.getElementById("expNext");
-  const prevWrap    = document.getElementById("expPrev");
-  const nextBtn     = nextWrap?.querySelector(".exp-arrow-btn");
-  const prevBtn     = prevWrap?.querySelector(".exp-arrow-btn");
+  const track       = document.getElementById("expTrack");
+  const nextWrap    = document.getElementById("expNextWrap");
+  const prevWrap    = document.getElementById("expPrevWrap");
+  const nextBtn     = document.getElementById("expNextBtn");
+  const prevBtn     = document.getElementById("expPrevBtn");
   const progressBar = document.getElementById("expProgressBar");
 
-  if (!swiperEl) return;
+  if (!track) return;
 
-  const TOTAL = swiperEl.querySelectorAll(".swiper-slide").length;
+  const TOTAL = track.querySelectorAll(".exp-card").length;
+  let current = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
 
-  // ── Is mobile/tablet (below lg) ─────────────────────────
-  function isMobile() {
-    return window.innerWidth < 1152;
+  // ✅ AUTOPLAY VARIABLES
+  let autoplayInterval = null;
+  const AUTOPLAY_DELAY = 3000;
+
+  function isMobileOrTablet() {
+    return window.innerWidth < 1024; // sm + md
   }
 
-  // ── Update progress bar ──────────────────────────────────
-  function updateProgress(activeIndex) {
+  function startAutoplay() {
+    if (!isMobileOrTablet()) return;
+
+    stopAutoplay(); // prevent duplicate intervals
+
+    autoplayInterval = setInterval(() => {
+      if (current >= maxIndex()) {
+        // 🔁 LOOP BACK
+        track.style.transition = "none";
+        goTo(0);
+      } else {
+        goTo(current + 1);
+      }
+    }, AUTOPLAY_DELAY);
+  }
+
+  function stopAutoplay() {
+    if (autoplayInterval) {
+      clearInterval(autoplayInterval);
+      autoplayInterval = null;
+    }
+  }
+
+  function getGap() {
+    const style = getComputedStyle(track);
+    return parseFloat(style.columnGap) || parseFloat(style.gap) || 0;
+  }
+
+  function getCards() {
+    return [...track.querySelectorAll(".exp-card")];
+  }
+
+  // Sum actual rendered widths of cards before index
+  function getOffsetForIndex(index) {
+    const cards = getCards();
+    const gap = getGap();
+    let offset = 0;
+    for (let i = 0; i < index; i++) {
+      offset += cards[i].offsetWidth + gap;
+    }
+    return offset;
+  }
+
+  function getTotalTrackWidth() {
+    const cards = getCards();
+    const gap = getGap();
+    return cards.reduce((sum, c) => sum + c.offsetWidth + gap, 0) - gap;
+  }
+
+  function maxIndex() {
+    const cards = getCards();
+    const gap = getGap();
+    const wrapW = track.parentElement.offsetWidth;
+    let totalW = 0;
+
+    for (let i = TOTAL - 1; i >= 0; i--) {
+      totalW += cards[i].offsetWidth + (i < TOTAL - 1 ? gap : 0);
+      if (totalW >= wrapW) return i;
+    }
+
+    return TOTAL - 1;
+  }
+
+  function updateArrows() {
+    prevWrap.classList.toggle("hidden", current <= 0);
+    nextWrap.classList.toggle("hidden", current >= maxIndex());
+  }
+
+  function updateProgress() {
     if (!progressBar) return;
- const progress = (activeIndex + 1) / TOTAL;
-progressBar.style.transform = `scaleX(${progress})`;
+    progressBar.style.width = ((current + 1) / TOTAL) * 100 + "%";
   }
 
-  // ── Toggle desc on active card only ─────────────────────
-  function updateActiveCard(activeIndex) {
-    swiperEl.querySelectorAll(".swiper-slide").forEach((slide, i) => {
-      const card     = slide.querySelector(".exp-card");
-      const descWrap = slide.querySelector(".exp-card-desc-wrap");
-      if (!card || !descWrap) return;
+  function updateActiveCard() {
+    getCards().forEach((card, i) => {
+      const desc   = card.querySelector(".exp-card-desc-wrap");
+      const lodge  = card.querySelector(".exp-card-lodge-wrap");
 
-      if (i === activeIndex) {
+      if (i === current) {
         card.classList.add("exp-card--active");
-        descWrap.classList.remove("exp-card-desc-wrap--hidden");
+        desc?.classList.remove("exp-card-desc-wrap--hidden");
+        lodge?.classList.remove("exp-card-lodge-wrap--hidden");
       } else {
         card.classList.remove("exp-card--active");
-        descWrap.classList.add("exp-card-desc-wrap--hidden");
+        desc?.classList.add("exp-card-desc-wrap--hidden");
+        lodge?.classList.add("exp-card-lodge-wrap--hidden");
       }
     });
   }
 
-  // ── Arrow visibility ─────────────────────────────────────
-  function updateArrows(swiper) {
-    // On mobile: loop is on, always hide prev/next wrap buttons
-    // (user swipes freely — no arrow UI needed)
-    if (isMobile()) {
-      prevWrap?.classList.add("hidden");
-      nextWrap?.classList.add("hidden");
-      return;
-    }
+  function goTo(index) {
+    current = Math.min(Math.max(0, index), maxIndex());
 
-    // Desktop: show/hide based on position
-    if (swiper.isBeginning) {
-      prevWrap?.classList.add("hidden");
-    } else {
-      prevWrap?.classList.remove("hidden");
-    }
+    updateActiveCard();
 
-    if (swiper.isEnd) {
-      nextWrap?.classList.add("hidden");
-    } else {
-      nextWrap?.classList.remove("hidden");
-    }
+    requestAnimationFrame(() => {
+      let offset = getOffsetForIndex(current);
+      const wrapW = track.parentElement.offsetWidth;
+      const maxOffset = Math.max(0, getTotalTrackWidth() - wrapW);
+      offset = Math.min(offset, maxOffset);
+
+      prevTranslate = -offset;
+      currentTranslate = -offset;
+
+      track.style.transition = "transform 0.45s ease";
+      track.style.transform = `translateX(-${offset}px)`;
+
+      updateArrows();
+      updateProgress();
+    });
   }
 
-  // ── Position next arrow at right edge of second card ─────
-  function positionNextArrow(swiper) {
-    if (!nextWrap) return;
-
-    // Mobile: no floating arrow
-    if (isMobile()) {
-      nextWrap.style.left = "";
-      return;
-    }
-
-    const slides      = swiperEl.querySelectorAll(".swiper-slide");
-    const targetIndex = swiper.activeIndex + 1;
-    const targetSlide = slides[targetIndex] ?? slides[1];
-    if (!targetSlide) return;
-
-    const wrapEl = swiperEl.closest(".exp-swiper-wrap");
-    if (!wrapEl) return;
-
-    const wrapRect  = wrapEl.getBoundingClientRect();
-    const slideRect = targetSlide.getBoundingClientRect();
-    const rightEdge = slideRect.right - wrapRect.left;
-
-    nextWrap.style.position  = "absolute";
-    nextWrap.style.left      = rightEdge - 17 + "px"; // 17 = half of 34px btn
-    nextWrap.style.right     = "auto";
-    nextWrap.style.top       = "50%";
-    nextWrap.style.transform = "translateY(-50%)";
-  }
-
-  // ── Init Swiper ──────────────────────────────────────────
-  const swiper = new Swiper(swiperEl, {
-    // Loop only on mobile/tablet — on desktop arrows control it
-    loop: isMobile(),
-    speed: 620,
-
-    // Autoplay only on mobile/tablet
-    autoplay: isMobile()
-      ? { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }
-      : false,
-
-    breakpoints: {
-      320:  { slidesPerView: 1.2, spaceBetween: 13 },
-      768:  { slidesPerView: 1.4, spaceBetween: 16 },
-      1152: { slidesPerView: "auto", spaceBetween: 20 },
-      1440: { slidesPerView: "auto", spaceBetween: 23 },
-      1920: { slidesPerView: "auto", spaceBetween: 28 },
-    },
-
-    on: {
-      init(sw) {
-        updateActiveCard(sw.activeIndex);
-        updateProgress(sw.activeIndex);
-        updateArrows(sw);
-        setTimeout(() => positionNextArrow(sw), 60);
-      },
-      slideChange(sw) {
-        updateActiveCard(sw.activeIndex);
-        updateProgress(sw.activeIndex);
-        updateArrows(sw);
-        setTimeout(() => positionNextArrow(sw), 30);
-      },
-    },
+  // ✅ BUTTON EVENTS (with autoplay control)
+  nextBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    stopAutoplay();
+    goTo(current + 1);
   });
 
-  // ── Button clicks (desktop only) ─────────────────────────
-  nextBtn?.addEventListener("click", () => swiper.slideNext());
-  prevBtn?.addEventListener("click", () => swiper.slidePrev());
+  prevBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    stopAutoplay();
+    goTo(current - 1);
+  });
 
-  // ── Resize: reinit swiper when crossing lg breakpoint ────
+  // ─── DRAG / TOUCH ──────────────────────────────────────
+  let isDragging = false;
+  let startX = 0;
+  let animationFrame;
+
+  function getPositionX(e) {
+    return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
+  }
+
+  function dragStart(e) {
+    stopAutoplay(); // ✅ stop autoplay on drag
+    isDragging = true;
+    startX = getPositionX(e);
+    track.style.transition = "none";
+    animationFrame = requestAnimationFrame(animation);
+  }
+
+  function dragMove(e) {
+    if (!isDragging) return;
+    currentTranslate = prevTranslate + (getPositionX(e) - startX);
+  }
+
+  function dragEnd() {
+    cancelAnimationFrame(animationFrame);
+    isDragging = false;
+
+    const movedBy = currentTranslate - prevTranslate;
+
+    if (movedBy < -50) goTo(current + 1);
+    else if (movedBy > 50) goTo(current - 1);
+    else goTo(current);
+
+    // ✅ restart autoplay if needed
+    if (isMobileOrTablet()) startAutoplay();
+  }
+
+  function animation() {
+    track.style.transform = `translateX(${currentTranslate}px)`;
+    if (isDragging) requestAnimationFrame(animation);
+  }
+
+  track.addEventListener("mousedown", dragStart);
+  track.addEventListener("mousemove", dragMove);
+  track.addEventListener("mouseup", dragEnd);
+  track.addEventListener("mouseleave", dragEnd);
+  track.addEventListener("touchstart", dragStart, { passive: true });
+  track.addEventListener("touchmove", dragMove, { passive: true });
+  track.addEventListener("touchend", dragEnd);
+
   let resizeTimer;
-  let wasOnMobile = isMobile();
-
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-      const onMobile = isMobile();
+      goTo(current);
 
-      // If breakpoint crossed — destroy and reinit with correct config
-      if (onMobile !== wasOnMobile) {
-        wasOnMobile = onMobile;
-        swiper.destroy(true, true);
-
-        // Reinit with updated loop/autoplay based on new viewport
-        const newSwiper = new Swiper(swiperEl, {
-          loop: onMobile,
-          speed: 620,
-          autoplay: onMobile
-            ? { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }
-            : false,
-          breakpoints: {
-            320:  { slidesPerView: 1.2, spaceBetween: 13 },
-            768:  { slidesPerView: 1.4, spaceBetween: 16 },
-            1152: { slidesPerView: "auto", spaceBetween: 20 },
-            1440: { slidesPerView: "auto", spaceBetween: 23 },
-            1920: { slidesPerView: "auto", spaceBetween: 28 },
-          },
-          on: {
-            init(sw) {
-              updateActiveCard(sw.activeIndex);
-              updateProgress(sw.activeIndex);
-              updateArrows(sw);
-              setTimeout(() => positionNextArrow(sw), 60);
-            },
-            slideChange(sw) {
-              updateActiveCard(sw.activeIndex);
-              updateProgress(sw.activeIndex);
-              updateArrows(sw);
-              setTimeout(() => positionNextArrow(sw), 30);
-            },
-          },
-        });
-
-        nextBtn?.addEventListener("click", () => newSwiper.slideNext());
-        prevBtn?.addEventListener("click", () => newSwiper.slidePrev());
-
+      if (isMobileOrTablet()) {
+        startAutoplay();
       } else {
-        // Same breakpoint zone — just reposition arrow
-        positionNextArrow(swiper);
+        stopAutoplay();
       }
-    }, 100);
+    }, 150);
   });
-})();
 
+  // ✅ INIT
+  goTo(0);
+  startAutoplay();
+
+})();
 // ─── FULL MENU OVERLAY ───────────────────────────────────────
 (function () {
   const overlay     = document.getElementById("fullMenuOverlay");
@@ -965,36 +993,4 @@ progressBar.style.transform = `scaleX(${progress})`;
     lodgesOpen = !lodgesOpen;
 
     if (lodgesOpen) {
-      lodgesMenu?.classList.add("open");
-      lodgesItem?.classList.add("is-active");
-      lodgesItem?.classList.remove("is-blurred");
-      fmoLeft?.classList.add("has-active", "dropdown-open");
-
-      // Hide all other primary items
-      primaryItems.forEach((item) => {
-        if (item !== lodgesItem) {
-          item.classList.add("is-dropdown-hidden");
-          item.classList.remove("is-active", "is-blurred");
-        }
-      });
-
-    } else {
-      lodgesMenu?.classList.remove("open");
-      lodgesItem?.classList.remove("is-active");
-      fmoLeft?.classList.remove("has-active", "dropdown-open");
-
-      primaryItems.forEach((item) => {
-        item.classList.remove("is-active", "is-blurred", "is-dropdown-hidden");
-      });
-    }
-  }
-
-  // FIX 4: loop over ALL triggers and attach the SAME toggle function
-  lodgesTriggers?.forEach((trigger) => {
-    trigger.addEventListener("click", (e) => {
-      e.preventDefault();
-      toggleLodges();
-    });
-  });
-
-})();
+      lodgesM

@@ -126,105 +126,142 @@ xl:pl-[65px] xl:pt-[127px]
   }
   /* ─── EXPERIENCES SECTION LAYOUT ────────────────────────── */
 
+  /* ─── EXPERIENCES SECTION LAYOUT ────────────────────────── */
+
   .exp-section {
-    @apply w-full;
-    overflow: hidden;
+    @apply w-full overflow-hidden;
   }
 
-  /* Wrap is the positioning context — NO overflow */
-  .exp-swiper-wrap {
-    @apply relative;
-    height: 420px;
-  }
-  @media (min-width: 768px) {
-    .exp-swiper-wrap {
-      height: 480px;
-    }
-  }
-  @media (min-width: 1152px) {
-    .exp-swiper-wrap {
-      height: 540px;
-    }
-  }
-  @media (min-width: 1440px) {
-    .exp-swiper-wrap {
-      height: 600px;
-    }
-  }
-  @media (min-width: 1920px) {
-    .exp-swiper-wrap {
-      height: 680px;
-    }
-  }
-  .exp-swiper {
-    @apply relative w-full h-full;
-    overflow: visible !important;
-  }
   .exp-inner {
-    @apply w-full flex flex-col gap-5 lg:gap-[49px]
-    ml-6
-    md:pl-10
-    xl:ml-[65px]
-    2xl:ml-[100px];
+    @apply w-full flex flex-col;
+    gap: 20px;
+    padding-left: 24px;
+    padding-top: 60px;
   }
-  .exp-swiper-wrap {
-    @apply relative;
-    height: 420px;
-  }
-  .exp-swiper {
-    @apply relative w-full;
-    overflow: visible !important;
-  }
+
   @media (min-width: 768px) {
-    .exp-swiper-wrap {
-      height: 480px;
+    .exp-inner {
+      padding-left: 40px;
+      padding-top: 72px;
+      gap: 24px;
     }
   }
+
   @media (min-width: 1152px) {
-    .exp-swiper-wrap {
-      height: 540px;
+    .exp-inner {
+      padding-left: 65px;
+      padding-top: 92px;
+      gap: 49px;
     }
   }
+
+  @media (min-width: 1920px) {
+    .exp-inner {
+      padding-left: 100px;
+      padding-top: 112px;
+    }
+  }
+
+  /* Slider wrap: clips overflow on mobile, visible on desktop for peek */
+  .exp-slider-wrap {
+    @apply relative w-full overflow-hidden;
+    height: 300px;
+  }
+
+  @media (min-width: 768px) {
+    .exp-slider-wrap {
+      height: 380px;
+    }
+  }
+
+  @media (min-width: 1152px) {
+    .exp-slider-wrap {
+      height: 513px;
+      overflow: visible;
+    }
+  }
+
   @media (min-width: 1440px) {
-    .exp-swiper-wrap {
+    .exp-slider-wrap {
+      height: 513px;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .exp-slider-wrap {
       height: 600px;
     }
   }
-  @media (min-width: 1920px) {
-    .exp-swiper-wrap {
-      height: 680px;
+
+  /* Track */
+  .exp-track {
+    @apply flex;
+    gap: 12px;
+    transition: transform 0.45s ease;
+    will-change: transform;
+    height: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .exp-track {
+      gap: 16px;
     }
   }
+
+  @media (min-width: 1152px) {
+    .exp-track {
+      gap: 20px;
+    }
+  }
+
+  /* ── Card base ── */
   .exp-card {
-    @apply relative w-full overflow-hidden;
-    height: 420px;
-    transition: all 0.55s ease;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    /* Mobile: show ~1.4 cards */
+    width: calc((100vw - 8px) / 1.4);
   }
 
   @media (min-width: 768px) {
     .exp-card {
-      height: 480px;
+      width: calc((100vw - 80px - 16px) / 1.5);
     }
   }
+
+  /* Desktop: fixed narrow width, active gets 754px */
   @media (min-width: 1152px) {
     .exp-card {
-      height: 540px;
+      width: 376px;
+      transition: width 0s; /* instant — JS handles transform animation */
+    }
+    .exp-card.exp-card--active {
+      width: 754px;
     }
   }
+
   @media (min-width: 1440px) {
     .exp-card {
-      height: 600px;
+      width: 376px;
+    }
+    .exp-card.exp-card--active {
+      width: 754px;
     }
   }
+
   @media (min-width: 1920px) {
     .exp-card {
-      height: 680px;
+      width: 280px;
+    }
+    .exp-card.exp-card--active {
+      width: 860px;
     }
   }
 
   .exp-prev-wrap,
   .exp-next-wrap {
-    @apply hidden lg:block absolute top-1/2 -translate-y-1/2 z-30 pointer-events-none;
+    @apply hidden lg:block absolute top-2/2 -translate-y-1/2 z-30 pointer-events-none;
   }
 
   .exp-prev-wrap {
@@ -233,16 +270,46 @@ xl:pl-[65px] xl:pt-[127px]
   }
 
   .exp-next-wrap {
-    @apply absolute top-1/2 -translate-y-1/2 z-30;
+    @apply absolute top-2/2 -translate-y-1/2 z-30 hidden lg:!block;
     pointer-events: all;
   }
 
+  .exp-next-wrap {
+    @apply right-2 lg:right-[78px];
+  }
+  .exp-slider-wrap {
+    @apply relative w-full overflow-hidden;
+    /* height matches card height per breakpoint */
+    height: 420px;
+  }
+
+  @media (min-width: 768px) {
+    .exp-slider-wrap {
+      height: 480px;
+    }
+  }
+  @media (min-width: 1152px) {
+    .exp-slider-wrap {
+      height: 540px;
+      overflow: visible; /* let cards peek out to the right */
+    }
+  }
+  @media (min-width: 1440px) {
+    .exp-slider-wrap {
+      height: 600px;
+    }
+  }
+  @media (min-width: 1920px) {
+    .exp-slider-wrap {
+      height: 680px;
+    }
+  }
   .exp-swiper-wrap .hidden {
     @apply !hidden;
   }
   /* Progress bar */
   .exp-progress-wrap {
-    @apply w-full mt-[30px] md:mt-8 lg:mt-[49px]   !px-6 lg:!px-[65px];
+    @apply w-full mt-[30px] md:mt-8 lg:mt-[49px] !mx-6 lg:!ml-[65px] lg:!mr-[65px];
     height: 2px;
     background-color: #cccccc;
     border-radius: 1px;
@@ -252,9 +319,8 @@ xl:pl-[65px] xl:pt-[127px]
     @apply h-full;
     background-color: #80715c;
     border-radius: 1.7px;
-    transform: scaleX(0.2);
-    width: 20%;
-    transition: width 0.45s ease;
+    width: 33.33%; /* 1/3 — first of 3 slides */
+    transition: width 0.4s ease; /* simple width transition */
   }
   /* ─── PLAN MY AFRICAN JOURNEY LAYOUT ─────────────────────── */
 

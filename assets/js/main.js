@@ -1,5 +1,3 @@
-/* main.js — ATZ Collections interaction layer */
-
 // ─── NAV SCROLL STATE ──────────────────────────────────────
 const navWrapper = document.querySelector(".nav-wrapper");
 
@@ -31,21 +29,16 @@ dropdowns.forEach((dropdown) => {
   if (!trigger) return;
   trigger.addEventListener("click", (e) => {
     e.preventDefault();
-    e.stopPropagation(); // Prevents the window click listener from firing immediately
-
+    e.stopPropagation(); 
     const isOpen = dropdown.classList.contains("open");
 
-    // Close all other dropdowns first
     dropdowns.forEach((other) => other.classList.remove("open"));
-
-    // If it wasn't open, open it now (Toggle logic)
     if (!isOpen) {
       dropdown.classList.add("open");
     }
   });
 });
 
-// Close the menu if the user clicks anywhere else on the screen
 window.addEventListener("click", () => {
   dropdowns.forEach((dropdown) => {
     dropdown.classList.remove("open");
@@ -88,7 +81,7 @@ const observer = new IntersectionObserver(
     });
   },
   {
-    threshold: 0.4, // 👈 adjust when it triggers
+    threshold: 0.4,
   },
 );
 const wordSpans = document.querySelectorAll(".word");
@@ -97,7 +90,6 @@ window.addEventListener("scroll", () => {
   const rect = storySection.getBoundingClientRect();
   const windowHeight = window.innerHeight;
 
-  // progress from 0 → 1
   const progress = Math.min(
     Math.max((windowHeight - rect.top) / (windowHeight + rect.height), 0),
     1,
@@ -131,7 +123,6 @@ observer.observe(storySection);
   const TOTAL = track.querySelectorAll(".lodge-card").length;
   let current = 0;
 
-  // 👉 Dynamic STEP (fix skip issue)
   function getStep() {
     return visibleCount() === 1 ? 1 : 2;
   }
@@ -148,7 +139,7 @@ observer.observe(storySection);
     const wrapW = track.parentElement.offsetWidth;
     const cw = getCardWidth();
     if (!cw) return 1;
-    return Math.max(1, Math.floor(wrapW / cw)); // FIXED
+    return Math.max(1, Math.floor(wrapW / cw));
   }
 
   function maxIndex() {
@@ -175,7 +166,6 @@ observer.observe(storySection);
 
   let offset = current * cw;
 
-  // 🔥 Prevent extra empty space at end
   const maxOffset = totalWidth - wrapW;
   offset = Math.min(offset, maxOffset);
 
@@ -189,11 +179,9 @@ observer.observe(storySection);
   updateCounter();
 }
 
-  // 👉 BUTTON EVENTS
   nextBtn?.addEventListener("click", () => goTo(current + getStep()));
   prevBtn?.addEventListener("click", () => goTo(current - getStep()));
 
-  // ─── DRAG / TOUCH SUPPORT ─────────────────────
   let isDragging = false;
   let startX = 0;
   let currentTranslate = 0;
@@ -237,31 +225,25 @@ observer.observe(storySection);
     if (isDragging) requestAnimationFrame(animation);
   }
 
-  // 👉 MOUSE EVENTS
   track.addEventListener("mousedown", dragStart);
   track.addEventListener("mousemove", dragMove);
   track.addEventListener("mouseup", dragEnd);
   track.addEventListener("mouseleave", dragEnd);
 
-  // 👉 TOUCH EVENTS
   track.addEventListener("touchstart", dragStart, { passive: true });
   track.addEventListener("touchmove", dragMove, { passive: true });
   track.addEventListener("touchend", dragEnd);
 
-  // 👉 RESIZE FIX
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => goTo(current), 100);
   });
 
-  // INIT
   goTo(0);
 })();
 
-/* ────────────────────────────────────────────────
-   JOURNEYS SWIPER (mobile / tablet only)
-──────────────────────────────────────────────── */
+/*  JOURNEYS SWIPER */
 function initJourneysSwiper() {
   const swiperEl = document.getElementById("journeysSwiper");
   const prevBtn = document.getElementById("jrnPrev");
@@ -288,7 +270,6 @@ function initJourneysSwiper() {
     },
   });
 
-  // Buttons
   prevBtn?.addEventListener("click", () => swiper.slidePrev());
   nextBtn?.addEventListener("click", () => swiper.slideNext());
   function handleResize() {
@@ -307,16 +288,12 @@ function initJourneysSwiper() {
   handleResize();
 }
 initJourneysSwiper();
-/* ────────────────────────────────────────────────
-    TRAVEL TYPES SWIPER (Refactored Logic)
- ──────────────────────────────────────────────── */
 let travelSwiper;
 
 function initTravelSwiper() {
   const swiperEl = document.getElementById("travelSwiper");
   if (!swiperEl) return;
 
-  // Destroy previous instance (important)
   if (travelSwiper) {
     travelSwiper.destroy(true, true);
   }
@@ -383,7 +360,6 @@ if (nextBtn) {
 // Init
 initTravelSwiper();
 
-// Re-init on resize
 let resizeTimer;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
@@ -392,9 +368,7 @@ window.addEventListener("resize", () => {
 
 document.addEventListener("DOMContentLoaded", initTravelSwiper);
 
-/* ────────────────────────────────────────────────
-   STORIES SLIDER (Infinite Loop + Autoplay)
-──────────────────────────────────────────────── */
+/* STORIES SLIDER*/
 (function () {
   const track = document.getElementById("storiesTrack");
   const prevWrap = document.getElementById("storiesPrevWrap");
@@ -446,21 +420,19 @@ document.addEventListener("DOMContentLoaded", initTravelSwiper);
     const slides = [...track.children];
     const visible = getSlidesPerView();
 
-    // clone first N
     slides.slice(0, visible).forEach((el) => {
       const clone = el.cloneNode(true);
       clone.classList.add("clone");
       track.appendChild(clone);
     });
 
-    // clone last N
-    slides.slice(-visible).forEach((el) => {
+     slides.slice(-visible).forEach((el) => {
       const clone = el.cloneNode(true);
       clone.classList.add("clone");
       track.insertBefore(clone, track.firstChild);
     });
 
-    current = visible; // start from real first
+    current = visible; 
   }
 
   function goTo(index, smooth = true) {
@@ -488,8 +460,6 @@ document.addEventListener("DOMContentLoaded", initTravelSwiper);
   function checkLoop() {
     const total = track.querySelectorAll(".stories-card").length;
     const visible = getSlidesPerView();
-
-    // jump to real slides (no animation)
     if (current >= total - visible) {
       goTo(visible, false);
     }
@@ -527,10 +497,9 @@ document.addEventListener("DOMContentLoaded", initTravelSwiper);
   track.addEventListener("mouseleave", startAutoSlide);
 
   window.addEventListener("resize", () => {
-    location.reload(); // easiest safe reset
+    location.reload(); 
   });
 
-  // INIT
   applySpacing();
   setupClones();
   goTo(current, false);
@@ -538,21 +507,16 @@ document.addEventListener("DOMContentLoaded", initTravelSwiper);
 })();
 
 function initFooterAccordion() {
-
-  /* ── Newsletter toggle (mobile only) ── */
-  const nlToggle   = document.getElementById("nlToggle");
+ const nlToggle   = document.getElementById("nlToggle");
   const nlFormWrap = document.getElementById("nlFormWrap");
 
   nlToggle?.addEventListener("click", () => {
     const isOpen = nlFormWrap.classList.contains("open");
-    // Toggle open class
     nlFormWrap.classList.toggle("open", !isOpen);
     nlToggle.classList.toggle("open", !isOpen);
-    // Force display because Tailwind's `hidden` uses !important
     nlFormWrap.style.display = isOpen ? "none" : "block";
   });
 
-  /* ── Nav column accordions (mobile only) ── */
   const colHeaders = document.querySelectorAll(".footer-col-header");
 
   colHeaders.forEach((header) => {
@@ -563,7 +527,6 @@ function initFooterAccordion() {
       const links  = document.getElementById(`acc-${key}`);
       const isOpen = links?.classList.contains("open");
 
-      // Close all first
       colHeaders.forEach((h) => {
         const k = h.dataset.accordion;
         const el = document.getElementById(`acc-${k}`);
@@ -572,7 +535,6 @@ function initFooterAccordion() {
         h.classList.remove("open");
       });
 
-      // Open the clicked one if it was closed
       if (!isOpen && links) {
         links.classList.add("open");
         links.style.display = "flex";
@@ -584,10 +546,8 @@ function initFooterAccordion() {
     });
   });
 
-  /* ── On resize to lg+: clear all inline styles ── */
   function syncDesktopState() {
     if (window.innerWidth >= 1152) {
-      // Remove inline styles so CSS takes over (lg:flex from Tailwind)
       nlFormWrap && (nlFormWrap.style.display = "");
       document.querySelectorAll(".footer-col-links").forEach((el) => {
         el.style.display = "";
@@ -602,10 +562,8 @@ function initFooterAccordion() {
   syncDesktopState(); // run once on init
 }
 
-// Make sure it's called
 initFooterAccordion();
 
-// Menu open/close
 const overlay = document.getElementById("fullMenuOverlay");
 const trigger = document.getElementById("menuTrigger");
 const closeBtn = document.getElementById("menuCloseBtn");
@@ -623,17 +581,14 @@ function closeMenu() {
   document.body.style.overflow = "";
 }
 
-// ✅ SAFE listeners
 trigger?.addEventListener("click", openMenu);
 mobileTrg?.addEventListener("click", openMenu);
 closeBtn?.addEventListener("click", closeMenu);
 
-// Escape key
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeMenu();
 });
 
-// ─── Lodges dropdown ───
 const lodgesDropdown = document.getElementById("lodgesDropdown");
 
 if (lodgesDropdown) {
@@ -651,7 +606,6 @@ if (lodgesDropdown) {
   });
 }
 
-// ─── Image hover preview ───
 const primaryLinks = document.querySelectorAll(".primary-links a");
 const imgPlaceholder = document.querySelector(".image-preview-placeholder");
 
@@ -706,7 +660,6 @@ if (imgPlaceholder) {
     return window.innerWidth >= 1152;
   }
 
-  // ── After DOM update, calculate offset to card[index] ──
   function getOffsetForIndex(index) {
     const cards = getCards();
     const gap   = getGap();
@@ -723,7 +676,6 @@ if (imgPlaceholder) {
     return cards.reduce((sum, c) => sum + c.offsetWidth + gap, 0) - gap;
   }
 
-  // ── Update active card CSS classes ──────────────────────
   function updateActiveCard(index) {
     getCards().forEach((card, i) => {
       const desc  = card.querySelector(".exp-card-desc-wrap");
@@ -740,36 +692,25 @@ if (imgPlaceholder) {
       }
     });
   }
-
-  // ── Update arrows ────────────────────────────────────────
-  function updateArrows() {
+ function updateArrows() {
     if (!isDesktop()) {
       prevWrap?.classList.add("hidden");
       nextWrap?.classList.add("hidden");
       return;
     }
     prevWrap?.classList.toggle("hidden", current <= 0);
-    // Always show next unless truly at last card
     nextWrap?.classList.toggle("hidden", current >= TOTAL() - 1);
   }
-
-  // ── Update progress bar ──────────────────────────────────
-  function updateProgress() {
+ function updateProgress() {
     if (!progressBar) return;
     progressBar.style.width = ((current + 1) / TOTAL()) * 100 + "%";
   }
-
-  // ── Core: go to a specific index ─────────────────────────
-  function goTo(index, animate = true) {
+ function goTo(index, animate = true) {
     const total = TOTAL();
+current = Math.min(Math.max(0, index), total - 1);
 
-    // Clamp — allow all cards to become active
-    current = Math.min(Math.max(0, index), total - 1);
-
-    // Step 1: update active class (changes card widths on desktop)
     updateActiveCard(current);
 
-    // Step 2: wait one frame for width change to apply, then translate
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         const wrapW     = track.parentElement.offsetWidth;
@@ -786,20 +727,17 @@ if (imgPlaceholder) {
     });
   }
 
-  // ── Autoplay: cycles through ALL cards then loops ────────
   function startAutoplay() {
     stopAutoplay();
     autoplayInterval = setInterval(() => {
       const next = current + 1;
       if (next >= TOTAL()) {
-        // Silently jump to start, then resume from 0
-        track.style.transition = "none";
+         track.style.transition = "none";
         track.style.transform  = "translateX(0)";
         current = 0;
         updateActiveCard(0);
         updateArrows();
         updateProgress();
-        // Re-enable transition next frame
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             track.style.transition = "transform 0.45s ease";
@@ -817,9 +755,7 @@ if (imgPlaceholder) {
       autoplayInterval = null;
     }
   }
-
-  // ── Button events ─────────────────────────────────────────
-  nextBtn?.addEventListener("click", (e) => {
+ nextBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
     stopAutoplay();
     goTo(current + 1 >= TOTAL() ? 0 : current + 1);
@@ -833,8 +769,7 @@ if (imgPlaceholder) {
     startAutoplay();
   });
 
-  // ── Touch / Drag ──────────────────────────────────────────
-  let isDragging = false;
+   let isDragging = false;
   let startX = 0;
   let currentTranslate = 0;
   let prevTranslate = 0;
@@ -882,14 +817,12 @@ if (imgPlaceholder) {
   track.addEventListener("touchmove",  dragMove,  { passive: true });
   track.addEventListener("touchend",   dragEnd);
 
-  // ── Resize ────────────────────────────────────────────────
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => goTo(current), 150);
   });
 
-  // ── Init ──────────────────────────────────────────────────
   goTo(0, false);
   startAutoplay();
 })();
@@ -910,11 +843,8 @@ if (imgPlaceholder) {
 
   const previewImg = document.getElementById("fmoPreviewImg");
   const fmoLeft    = overlay?.querySelector(".fmo-left");
+ let lodgesOpen = false;
 
-  // declare lodgesOpen at top so closeMenu can access it
-  let lodgesOpen = false;
-
-  // ── Open / Close ─────────────────────────────────────────
   function openMenu() {
     if (!overlay) return;
     overlay.classList.add("active");
@@ -946,7 +876,6 @@ if (imgPlaceholder) {
     if (e.key === "Escape") closeMenu();
   });
 
-  // ── Primary link hover ────────────────────────────────────
   if (overlay && fmoLeft) {
     const primaryItems = overlay.querySelectorAll(".fmo-primary-item");
 
@@ -999,9 +928,7 @@ if (imgPlaceholder) {
       lodgesItem?.classList.add("is-active");
       lodgesItem?.classList.remove("is-blurred");
       fmoLeft?.classList.add("has-active", "dropdown-open");
-
-      // Hide all other primary items
-      primaryItems.forEach((item) => {
+   primaryItems.forEach((item) => {
         if (item !== lodgesItem) {
           item.classList.add("is-dropdown-hidden");
           item.classList.remove("is-active", "is-blurred");
@@ -1018,9 +945,7 @@ if (imgPlaceholder) {
       });
     }
   }
-
-  // FIX 4: loop over ALL triggers and attach the SAME toggle function
-  lodgesTriggers?.forEach((trigger) => {
+ lodgesTriggers?.forEach((trigger) => {
     trigger.addEventListener("click", (e) => {
       e.preventDefault();
       toggleLodges();

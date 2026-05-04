@@ -317,8 +317,8 @@ xl:pl-[65px] xl:pt-[127px]
     @apply h-full;
     background-color: #80715c;
     border-radius: 1.7px;
-    width: 33.33%; /* 1/3 — first of 3 slides */
-    transition: width 0.4s ease; /* simple width transition */
+    width: 33.33%;
+    transition: width 0.4s ease;
   }
   /* ─── PLAN MY AFRICAN JOURNEY LAYOUT ─────────────────────── */
 
@@ -369,14 +369,8 @@ xl:pl-[65px] xl:pt-[127px]
   }
 
   .dest-grid {
-    @apply grid gap-3 xl:gap-6;
+    @apply grid gap-3 md:gap-[14px] xl:gap-6;
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (min-width: 768px) {
-    .dest-grid {
-      gap: 14px;
-    }
   }
 
   @media (min-width: 1152px) {
@@ -546,43 +540,34 @@ xl:pl-[65px] xl:pt-[127px]
     @apply flex;
   }
 
-  /* ── Right: slider outer — clips overflow ── */
   .stories-slider-outer {
     @apply relative flex-1 overflow-hidden;
     z-index: 1;
-    /* On mobile the outer handles the clip */
     min-width: 0;
   }
-
-  /* ── Track ── */
   .stories-track {
     @apply flex gap-[25px] md:gap-[25px] 2xl:gap-[30px];
     transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
   }
 
-  /* ── Individual card ── */
   .stories-card {
     @apply flex-shrink-0 flex flex-col bg-white overflow-hidden gap-6 xl:gap-[30px]
     px-[14px] xl:px-6 pt-[14px] xl:pt-[25px] pb-[21px] xl:pb-[26px];
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   }
 
-  /* Mobile: show 1 card + peek */
   .stories-card {
     width: calc(100vw - 131px);
   }
 
   @media (min-width: 768px) {
-    /* Show ~1.8 cards on tablet */
     .stories-card {
       width: calc((100vw - 80px - 24px) / 1.8);
     }
   }
 
   @media (min-width: 1152px) {
-    /* Available width = viewport - padding(120px) - left-col(28%) - gap(40px) */
-    /* Show 2 cards + slight peek of 3rd */
     .stories-card {
       width: calc((100vw - 120px) * 0.72 / 2.1);
     }
@@ -600,7 +585,6 @@ xl:pl-[65px] xl:pt-[127px]
     }
   }
 
-  /* ── Card image area ── */
   .stories-card-img-wrap {
     @apply w-full overflow-hidden flex-shrink-0;
     aspect-ratio: 4 / 3;
@@ -612,7 +596,6 @@ xl:pl-[65px] xl:pt-[127px]
     }
   }
 
-  /* ── Card body ── */
   .stories-card-body {
     @apply flex flex-col flex-1 gap-[25px] xl:gap-[30px];
   }

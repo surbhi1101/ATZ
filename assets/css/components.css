@@ -76,11 +76,7 @@
     color: var(--color-cream);
     font-family: var(--font-open);
   }
-  /* ════════════════════════════════════════════════
-   FULL MENU OVERLAY
-════════════════════════════════════════════════ */
-
-  /* Overlay: full screen, hidden by default */
+  /*FULL MENU OVERLAY*/
   .full-menu-overlay {
     @apply fixed inset-0 z-[200] flex flex-col;
     background-color: #f5f4f2;
@@ -94,7 +90,6 @@
     pointer-events: all;
   }
 
-  /* ── Top bar ── */
   .fmo-topbar {
     @apply flex items-center justify-between px-10 py-[26px] xl:px-[64px] w-full;
     flex-shrink: 0;
@@ -121,12 +116,9 @@
     @apply flex;
   }
 
-  /* ── Content grid: 3 columns ── */
   .fmo-content {
     @apply flex flex-1 gap-8 pl-10 xl:pl-[78px];
   }
-
-  /* ── LEFT column ── */
   .fmo-left {
     @apply flex flex-col justify-center gap-6;
   }
@@ -146,13 +138,10 @@
     transition: color 0.3s ease;
   }
 
-  /* Active item: full dark color */
   .fmo-primary-item.is-active .fmo-primary-link,
   .fmo-primary-link:hover {
     color: #262633;
   }
-
-  /* Other items dim when one is active */
   .fmo-left.has-active .fmo-primary-item:not(.is-active) .fmo-primary-link {
     color: rgba(38, 38, 51, 0.22);
   }
@@ -161,10 +150,8 @@
     @apply h-[21px] w-[18px];
   }
 
-  /* ── Lodges submenu ── */
   .fmo-submenu {
-    @apply flex flex-col;
-    gap: 16px;
+    @apply flex flex-col gap-4;
     max-height: 0;
     overflow: hidden;
     transition:
@@ -199,16 +186,12 @@
   .fmo-submenu-name a:hover {
     color: #80715c;
   }
-
-  /* ── CENTER column ── */
   .fmo-center {
     @apply relative flex items-center justify-center flex-shrink-0;
     width: 30%;
-    /* Full height of content area */
     align-self: stretch;
   }
 
-  /* Gold vertical divider — full height */
   .fmo-gold-line {
     @apply absolute top-0 bottom-0;
     left: 50%;
@@ -217,7 +200,6 @@
     background-color: #c9952a;
   }
 
-  /* Portrait image — sits on top of the gold line */
   .fmo-image-wrap {
     @apply relative z-[1];
   }
@@ -228,7 +210,6 @@
     transition: opacity 0.4s ease;
   }
 
-  /* ── RIGHT column ── */
   .fmo-right {
     @apply flex flex-col justify-center gap-6 pl-[11px];
   }
@@ -244,12 +225,10 @@
   .fmo-secondary-item a:hover {
     color: #80715c;
   }
-  /* When dropdown is open: hide all other primary items entirely */
   .fmo-left.dropdown-open .fmo-primary-item:not(.is-active) {
     display: none;
   }
 
-  /* When hovering a link (has-active state): blur others instead of just dimming */
   .fmo-left.has-active .fmo-primary-item:not(.is-active) .fmo-primary-link {
     color: rgba(38, 38, 51, 0.22);
     filter: blur(6px);
@@ -436,10 +415,9 @@
 
   .view-btn {
     @apply flex items-center gap-1 cursor-pointer font-normal
-         text-[11px] md:text-[12px] tracking-[4%] leading-[24px] uppercase
+         text-[11px] md:text-[12px] tracking-[4%] leading-[24px] pb-2 uppercase
          text-[#BFAE9C] transition-colors duration-200;
     font-family: var(--font-open);
-    padding-bottom: 8px;
     border-bottom: 1px solid transparent;
   }
 
@@ -453,7 +431,6 @@
   }
   .lodge-card {
     @apply flex-shrink-0 flex flex-col gap-8;
-    /* 320px–767px: show 1.2 cards */
     width: calc((100vw - 40px) / 1.2);
   }
 
@@ -671,8 +648,6 @@
     font-family: var(--font-Times);
     @apply font-normal text-[#262633] text-[36px] tracking-[2%] leading-[44px] lg:text-[50px];
   }
-
-  /* ── Card image fills the card ── */
   .exp-card-img {
     @apply absolute inset-0 w-full h-full;
   }
@@ -687,7 +662,6 @@
     transform: scale(1.04);
   }
 
-  /* ── Gradient overlay ── */
   .exp-card-overlay {
     @apply absolute inset-0 z-[1] flex flex-col justify-between pt-[27px] pr-[18px];
     background: linear-gradient(
@@ -721,7 +695,6 @@
     @apply flex flex-col;
   }
 
-  /* ── Title: always top-left, white ── */
   .exp-card-title-wrap h3 {
     font-family: var(--font-Times);
     @apply font-normal text-white leading-[120%] tracking-[2%];
@@ -734,7 +707,6 @@
     }
   }
 
-  /* Active card on desktop: bigger title */
   @media (min-width: 1152px) {
     .exp-card-title-wrap h3 {
       font-size: 28px;
@@ -748,13 +720,11 @@
     @apply flex flex-col gap-4;
   }
 
-  /* ── Desc: hidden on mobile/tablet, only active card on desktop ── */
   .exp-card-desc-wrap {
     @apply hidden;
   }
 
   @media (min-width: 1152px) {
-    /* On desktop, desc is visible only when NOT hidden */
     .exp-card-desc-wrap:not(.exp-card-desc-wrap--hidden) {
       @apply block;
     }
@@ -768,7 +738,6 @@
     @apply !hidden;
   }
 
-  /* ── Lodge label: same visibility rules as desc ── */
   .exp-card-lodge-wrap {
     @apply hidden lg:block;
   }
@@ -783,7 +752,6 @@
     }
   }
 
-  /* ── Arrow buttons ── */
   .exp-prev-wrap,
   .exp-next-wrap {
     @apply absolute top-0 z-10 hidden lg:flex items-center justify-center;
@@ -797,28 +765,17 @@
     @apply right-2 lg:right-[20px];
   }
 
-  /* Progress bar */
   .exp-progress-wrap {
-    @apply w-full mt-[20px] md:mt-8 lg:mt-[49px];
-    padding-left: 24px;
-    padding-right: 24px;
-    height: 2px;
+    @apply w-full mt-[20px] md:mt-8 lg:mt-[49px] pl-6 pr-6 h-[2px] lg:px-[65px];
     background-color: #cccccc;
     border-radius: 1px;
-  }
-
-  @media (min-width: 1152px) {
-    .exp-progress-wrap {
-      padding-left: 65px;
-      padding-right: 65px;
-    }
   }
 
   .exp-progress-bar {
     @apply h-full;
     background-color: #80715c;
     border-radius: 1.7px;
-    width: 20%; /* 1/5 slides */
+    width: 20%;
     transition: width 0.4s ease;
   }
 
@@ -1301,7 +1258,6 @@ duration-200;
     @apply w-full bg-[#262633];
   }
 
-  /* ── Newsletter Row ── */
   .footer-newsletter {
     @apply w-full;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
@@ -1316,7 +1272,6 @@ duration-200;
     max-width: 1920px;
   }
 
-  /* Mobile toggle row */
   .footer-nl-toggle {
     @apply flex items-center justify-between lg:hidden cursor-pointer py-1;
   }
@@ -1335,7 +1290,6 @@ duration-200;
     transform: rotate(180deg);
   }
 
-  /* Form wrap: hidden on mobile (accordion), always visible on lg+ */
   .footer-nl-form-wrap {
     @apply hidden lg:block;
   }
@@ -1345,7 +1299,6 @@ duration-200;
     overflow: hidden;
   }
 
-  /* Background image */
   .footer-bg-img {
     position: absolute;
     inset: 0;
@@ -1361,13 +1314,11 @@ duration-200;
     @apply text-[20px] font-normal tracking-[2%] leading-[35px] text-white;
     font-family: var(--font-Times);
   }
-  /* The actual form row */
   .footer-nl-form {
     @apply flex flex-col gap-4 py-5;
     @apply lg:flex-row lg:items-end lg:gap-6 xl:gap-[60px];
   }
 
-  /* Fields */
   .footer-nl-field-wrap {
     @apply flex-1 relative;
   }
@@ -1409,7 +1360,6 @@ duration-200;
     @apply absolute right-0 bottom-3 pointer-events-none text-white/50;
   }
 
-  /* Sign Up button */
   .footer-nl-btn-wrap {
     @apply flex lg:shrink-0;
   }
@@ -1433,24 +1383,21 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
     border-color: white;
   }
 
-  /* ── Footer Body ── */
   .footer-body {
     @apply w-full;
   }
 
   .footer-body-inner {
-    @apply w-full mx-auto flex flex-col gap-6;
-    @apply px-6 py-10;
-    @apply lg:px-8 lg:py-14 lg:flex-row lg:gap-8;
-    @apply xl:px-10 xl:gap-[150px];
-    @apply 2xl:px-[100px] 2xl:gap-16;
+    @apply w-full mx-auto flex flex-col gap-6
+    px-6 py-10
+    lg:px-8 lg:py-14 lg:flex-row lg:gap-8
+    xl:px-10 xl:gap-[150px]
+    2xl:px-[100px] 2xl:gap-16
     max-width: 1920px;
   }
   .footer-nav-cols {
     @apply flex flex-col gap-6 lg:gap-[48px];
   }
-
-  /* Brand column */
   .footer-brand-col {
     @apply flex flex-col items-center lg:items-start gap-[14px];
     @apply lg:min-w-[180px] xl:min-w-[220px] 2xl:min-w-[260px];
@@ -1592,7 +1539,6 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
     @apply text-white;
   }
 
-  /* Social icons */
   .footer-social-wrap {
     @apply flex items-center justify-center gap-3 xl:gap-[10px];
   }
@@ -1609,7 +1555,6 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
     @apply text-white;
   }
 
-  /* Mobile social above legal */
   @media (max-width: 1151px) {
     .footer-bottom-inner {
       flex-direction: column;
@@ -1621,7 +1566,6 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
       order: 3;
     }
   }
-  /* ── Footer newsletter overlay image ── */
   .footer-newsletter {
     @apply relative;
   }
@@ -1641,7 +1585,6 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
     @apply relative z-[1];
   }
 
-  /* ── Affiliations ── */
   .footer-affiliations {
     @apply w-full;
     border-top: 1px solid rgba(255, 255, 255, 0.08);

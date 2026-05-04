@@ -1447,7 +1447,7 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
     max-width: 1920px;
   }
   .footer-nav-cols {
-    @apply flex flex-col lg:gap-[48px];
+    @apply flex flex-col gap-6 lg:gap-[48px];
   }
 
   /* Brand column */

@@ -993,4 +993,36 @@ if (imgPlaceholder) {
     lodgesOpen = !lodgesOpen;
 
     if (lodgesOpen) {
-      lodgesM
+      lodgesMenu?.classList.add("open");
+      lodgesItem?.classList.add("is-active");
+      lodgesItem?.classList.remove("is-blurred");
+      fmoLeft?.classList.add("has-active", "dropdown-open");
+
+      // Hide all other primary items
+      primaryItems.forEach((item) => {
+        if (item !== lodgesItem) {
+          item.classList.add("is-dropdown-hidden");
+          item.classList.remove("is-active", "is-blurred");
+        }
+      });
+
+    } else {
+      lodgesMenu?.classList.remove("open");
+      lodgesItem?.classList.remove("is-active");
+      fmoLeft?.classList.remove("has-active", "dropdown-open");
+
+      primaryItems.forEach((item) => {
+        item.classList.remove("is-active", "is-blurred", "is-dropdown-hidden");
+      });
+    }
+  }
+
+  // FIX 4: loop over ALL triggers and attach the SAME toggle function
+  lodgesTriggers?.forEach((trigger) => {
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggleLodges();
+    });
+  });
+
+})();

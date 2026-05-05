@@ -503,6 +503,10 @@
     @apply mt-1;
   }
 
+  .address span {
+    @apply block lg:hidden;
+  }
+
   .lodge-price-wrap span {
     @apply font-normal text-[#1a1f1e] tracking-[0.05em];
     font-size: 12px;
@@ -535,7 +539,12 @@
   }
 
   /*  RESIDENCES SECTION */
-
+  .res-slide-sub {
+    @apply flex flex-col gap-[2px];
+  }
+  .res-slide-btn-wrap {
+    @apply lg:mt-3;
+  }
   .residences-section {
     @apply w-full;
     background-color: var(--color-journeys-bg);
@@ -559,7 +568,7 @@
   }
   .res-slide {
     @apply relative w-full overflow-hidden h-[340px] md:h-[440px]
-    xl:h-[620px] 2xl:h-[720px];
+    xl:h-[686px] 2xl:h-[720px];
   }
 
   .res-slide-img {
@@ -883,7 +892,7 @@
   }
 
   .journey-card--featured {
-    @apply flex-1 flex flex-col;
+    @apply flex-1 flex flex-col xl:gap-8;
   }
 
   .journey-card--featured .journey-card-img-wrap {
@@ -1372,7 +1381,7 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
 
   .footer-body-inner {
     @apply w-full mx-auto flex flex-col gap-6
-    px-6 py-10
+    px-6 py-10 mt-[13px] xl:mt-0
     lg:px-8 lg:py-14 lg:flex-row lg:gap-8
     xl:px-10 xl:gap-[150px]
     2xl:px-[100px] 2xl:gap-16;
@@ -1493,7 +1502,7 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
 
   .footer-divider {
     @apply w-full;
-    height: 1px;
+    height: 0.5px;
     background-color: white;
   }
   .footer-bottom {

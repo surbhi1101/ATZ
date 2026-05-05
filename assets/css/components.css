@@ -430,62 +430,44 @@
   }
   .lodge-card {
     @apply flex-shrink-0 flex flex-col gap-8;
-    width: calc((100vw - 40px) / 1.2);
+    width: calc((100vw - 40px) / 1.07);
   }
 
+  /* md */
   @media (min-width: 768px) {
     .lodge-card {
-      width: calc((100vw - 80px - 32px) / 2);
+      width: calc((100vw - 80px - 32px) / 1.2);
     }
   }
 
+  /* lg */
   @media (min-width: 1152px) {
     .lodge-card {
-      width: calc((100vw - 120px - 64px) / 2.25);
+      width: calc((100vw - 120px - 64px) / 1.4);
     }
   }
 
+  /* xl */
   @media (min-width: 1440px) {
     .lodge-card {
-      width: calc((100vw - 160px - 64px) / 2.25);
+      width: calc((100vw - 160px - 64px) / 1.89);
     }
   }
 
+  /* 2xl */
   @media (min-width: 1920px) {
     .lodge-card {
-      width: calc((100vw - 240px - 64px) / 2.25);
-    }
-  }
-  .address {
-    @apply block lg:hidden;
-  }
-  @media (min-width: 768px) {
-    .lodge-card {
-      width: calc((100vw - 80px - 32px) / 2);
-    }
-  }
-
-  @media (min-width: 1152px) {
-    .lodge-card {
-      width: calc((100vw - 120px - 64px) / 2.25);
-    }
-  }
-
-  @media (min-width: 1440px) {
-    .lodge-card {
-      width: calc((100vw - 160px - 64px) / 2.25);
-    }
-  }
-
-  @media (min-width: 1920px) {
-    .lodge-card {
-      width: calc((100vw - 240px - 64px) / 2.25);
+      width: calc((100vw - 240px - 64px) / 3.1);
     }
   }
   .lodge-card-img {
-    @apply overflow-hidden  lg:w-full lg:h-full;
+    @apply overflow-hidden lg:w-full lg:h-full;
     border-radius: 2px;
     aspect-ratio: 4 / 3;
+  }
+
+  .lodge-card-img {
+    @apply h-[300px] w-full lg:h-full;
   }
 
   .lodge-card-img img {
@@ -499,7 +481,7 @@
     @apply flex flex-col gap-6;
   }
   .lodge-park-wrap span {
-    @apply font-normal tracking-[4%] leading-[24px] uppercase text-[#BFAE9C] text-[12px];
+    @apply font-normal tracking-[4%] leading-[100%] xl:leading-[24px] uppercase text-[#BFAE9C] text-[12px];
 
     font-family: var(--font-open);
   }

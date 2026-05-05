@@ -105,7 +105,7 @@ xl:pl-[65px] xl:pt-[127px]
   }
   .lodges-prev-wrap,
   .lodges-next-wrap {
-    @apply absolute top-0 z-10 flex items-center justify-center;
+    @apply absolute -top-[40px] lg:top-0 z-10 flex items-center justify-center;
     height: 65%;
   }
 

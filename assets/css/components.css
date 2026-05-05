@@ -284,7 +284,7 @@
   }
   .btn-plan {
     @apply inline-flex items-center justify-center 
-           font-normal text-[10px] lg:text-[11px] xl:text-[16px]
+           font-normal text-[14px] xl:text-[16px]
            tracking-[4%] leading-[24px] whitespace-nowrap !text-[#262633] bg-[#f1b332] uppercase
            px-4 py-[7px] lg:px-[18px] lg:py-[10px];
     font-family: var(--font-open);
@@ -1139,7 +1139,7 @@ duration-200;
     @apply font-light leading-[140%] tracking-[0%] w-[40%] hidden md:flex;
   }
   .impact-btn {
-    @apply bg-white w-fit text-[#262633] font-light text-[14px] xl:text-[16px] tracking-[2%] leading-[24px]  px-4 py-2  xl:px-[18px] xl:py-[10px] transition;
+    @apply bg-white w-fit !text-[#262633] font-light text-[14px] xl:text-[16px] tracking-[2%] leading-[24px]  px-4 py-2  xl:px-[18px] xl:py-[10px] transition;
     border-radius: 100px;
   }
   .impact-btn:hover {
@@ -1365,7 +1365,7 @@ duration-200;
 
   .btn-signup {
     font-family: var(--font-open);
-    @apply text-[11px] tracking-[4%] leading-[24px] xl:text-[16px] 
+    @apply text-[11px] tracking-[4%] !text-[#FFFFFF] leading-[24px] xl:text-[16px] 
 py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
     @apply text-white bg-transparent;
     border: 1px solid white;

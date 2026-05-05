@@ -662,7 +662,7 @@
   }
 
   .exp-card-overlay {
-    @apply absolute inset-0 z-[1] flex flex-col justify-between pt-[27px] pr-[18px];
+    @apply absolute inset-0 z-[1] flex flex-col justify-between pt-[27px] pl-[18px];
     background: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0.45) 0%,

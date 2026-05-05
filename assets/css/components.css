@@ -386,9 +386,9 @@
     font-family: var(--font-open);
   }
   .btn-story {
-    @apply font-light text-[10px] md:text-[16px]
-           tracking-[4%] leading-[24px] uppercase bg-transparent rounded-sm
-           px-4 py-2 md:px-[18px] md:py-[10px] text-[#262633] bg-white;
+    @apply font-light text-[14px] md:text-[16px]
+           tracking-[4%] leading-[24px] uppercase 
+           px-[16px] py-[8px] md:px-[18px] md:py-[10px] !text-[#262633] bg-white;
     font-family: var(--font-open);
     border-radius: 100px;
     transition:
@@ -413,7 +413,7 @@
   }
 
   .view-btn {
-    @apply flex items-center gap-1 cursor-pointer font-normal
+    @apply flex items-center gap-1 cursor-pointer font-normal 
          text-[11px] md:text-[12px] tracking-[4%] leading-[24px] pb-2 uppercase
          text-[#BFAE9C] transition-colors duration-200;
     font-family: var(--font-open);
@@ -424,7 +424,9 @@
     @apply text-[#80715C];
     border-bottom-color: #80715c;
   }
-
+  .view-btn img {
+    @apply h-[25px] w-[25px];
+  }
   .view-btn span {
     @apply hidden lg:flex;
   }

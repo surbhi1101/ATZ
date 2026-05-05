@@ -283,9 +283,9 @@
     @apply hidden md:flex h-full;
   }
   .btn-plan {
-    @apply inline-flex items-center justify-center bg-[#F1B332] text-[#262633]
+    @apply inline-flex items-center justify-center 
            font-normal text-[10px] lg:text-[11px] xl:text-[16px]
-           tracking-[4%] leading-[24px] whitespace-nowrap uppercase
+           tracking-[4%] leading-[24px] whitespace-nowrap !text-[#262633] bg-[#f1b332] uppercase
            px-4 py-[7px] lg:px-[18px] lg:py-[10px];
     font-family: var(--font-open);
     border-radius: 100px;
@@ -295,8 +295,7 @@
   }
 
   .btn-plan:hover {
-    @apply text-white;
-    background-color: var(--color-brown);
+    @apply bg-[#262633] !text-[#f1b332];
     outline: 1.5px solid var(--color-gold);
   }
   .nav-hamburger {
@@ -766,7 +765,7 @@
   }
 
   .exp-progress-wrap {
-    @apply w-full mt-[20px] md:mt-8 lg:mt-[49px] pl-6 pr-6 h-[2px] lg:px-[65px];
+    @apply w-full mt-[20px] md:mt-8 lg:mt-[49px] px-6 h-[2px] lg:px-[65px];
     background-color: #cccccc;
     border-radius: 1px;
   }
@@ -1392,11 +1391,11 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
     px-6 py-10
     lg:px-8 lg:py-14 lg:flex-row lg:gap-8
     xl:px-10 xl:gap-[150px]
-    2xl:px-[100px] 2xl:gap-16
+    2xl:px-[100px] 2xl:gap-16;
     max-width: 1920px;
   }
   .footer-nav-cols {
-    @apply flex flex-col gap-6 lg:gap-[48px];
+    @apply flex flex-col gap-6 lg:flex-row lg:gap-[48px];
   }
   .footer-brand-col {
     @apply flex flex-col items-center lg:items-start gap-[14px];
@@ -1449,7 +1448,7 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
   .btn-plan-footer {
     font-family: var(--font-open);
     @apply text-[14px] xl:text-[16px] tracking-[4%] uppercase px-4 py-[7px] xl:px-[18px] xl:py-[10px] font-normal;
-    @apply bg-[#F1B332] text-[#262633];
+    @apply !bg-[#F1B332] !text-[#262633];
     border-radius: 100px;
     border: 1.5px solid transparent;
     transition:

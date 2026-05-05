@@ -131,36 +131,10 @@ xl:pl-[65px] xl:pt-[127px]
   }
 
   .exp-inner {
-    @apply w-full flex flex-col;
-    gap: 20px;
-    padding-left: 24px;
-    padding-top: 60px;
+    @apply w-full flex flex-col gap-5 pl-6 pt-[60px] md:pl-10 md:pt-[72px] lg:pl-[65px] lg:pt-[92px]
+    lg:gap-[49px] 2xl:pl-[100px] 2xl:pt-[112px];
   }
 
-  @media (min-width: 768px) {
-    .exp-inner {
-      padding-left: 40px;
-      padding-top: 72px;
-      gap: 24px;
-    }
-  }
-
-  @media (min-width: 1152px) {
-    .exp-inner {
-      padding-left: 65px;
-      padding-top: 92px;
-      gap: 49px;
-    }
-  }
-
-  @media (min-width: 1920px) {
-    .exp-inner {
-      padding-left: 100px;
-      padding-top: 112px;
-    }
-  }
-
-  /* Slider wrap: clips overflow on mobile, visible on desktop for peek */
   .exp-slider-wrap {
     @apply relative w-full overflow-hidden;
     height: 300px;

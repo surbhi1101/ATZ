@@ -692,23 +692,67 @@ if (imgPlaceholder) {
       }
     });
   }
- function updateArrows() {
+
+  function updateArrows() {
     if (!isDesktop()) {
       prevWrap?.classList.add("hidden");
       nextWrap?.classList.add("hidden");
       return;
     }
+    // On desktop show/hide based on position
     prevWrap?.classList.toggle("hidden", current <= 0);
     nextWrap?.classList.toggle("hidden", current >= TOTAL() - 1);
   }
- function updateProgress() {
+
+  function updateProgress() {
     if (!progressBar) return;
     progressBar.style.width = ((current + 1) / TOTAL()) * 100 + "%";
   }
- function goTo(index, animate = true) {
-    const total = TOTAL();
-current = Math.min(Math.max(0, index), total - 1);
 
+  // ── Loop helper: jump silently to index without animation ─
+  function jumpTo(index) {
+    current = index;
+    updateActiveCard(current);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const wrapW     = track.parentElement.offsetWidth;
+        let offset      = getOffsetForIndex(current);
+        const maxOffset = Math.max(0, getTotalTrackWidth() - wrapW);
+        offset          = Math.min(offset, maxOffset);
+
+        track.style.transition = "none";
+        track.style.transform  = `translateX(-${offset}px)`;
+
+        updateArrows();
+        updateProgress();
+
+        // Re-enable transition after paint
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            track.style.transition = "transform 0.45s ease";
+          });
+        });
+      });
+    });
+  }
+
+  function goTo(index, animate = true) {
+    const total = TOTAL();
+
+    // ── Loop: wrap around in both directions ──
+    if (index >= total) {
+      // Past last — loop to first
+      jumpTo(0);
+      return;
+    }
+    if (index < 0) {
+      // Before first — loop to last
+      jumpTo(total - 1);
+      return;
+    }
+
+    current = index;
     updateActiveCard(current);
 
     requestAnimationFrame(() => {
@@ -727,25 +771,15 @@ current = Math.min(Math.max(0, index), total - 1);
     });
   }
 
+  // ── Autoplay: only on sm & md (below 1152px) ─────────────
   function startAutoplay() {
     stopAutoplay();
+
+    // Desktop: no autoplay — buttons only
+    if (isDesktop()) return;
+
     autoplayInterval = setInterval(() => {
-      const next = current + 1;
-      if (next >= TOTAL()) {
-         track.style.transition = "none";
-        track.style.transform  = "translateX(0)";
-        current = 0;
-        updateActiveCard(0);
-        updateArrows();
-        updateProgress();
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            track.style.transition = "transform 0.45s ease";
-          });
-        });
-      } else {
-        goTo(next);
-      }
+      goTo(current + 1); // goTo handles loop automatically
     }, AUTOPLAY_DELAY);
   }
 
@@ -755,21 +789,24 @@ current = Math.min(Math.max(0, index), total - 1);
       autoplayInterval = null;
     }
   }
- nextBtn?.addEventListener("click", (e) => {
+
+  // ── Buttons: loop on all devices ─────────────────────────
+  nextBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
     stopAutoplay();
-    goTo(current + 1 >= TOTAL() ? 0 : current + 1);
+    goTo(current + 1); // loops past last → first
     startAutoplay();
   });
 
   prevBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
     stopAutoplay();
-    goTo(current - 1 < 0 ? TOTAL() - 1 : current - 1);
+    goTo(current - 1); // loops before first → last
     startAutoplay();
   });
 
-   let isDragging = false;
+  // ── Touch / Drag ──────────────────────────────────────────
+  let isDragging = false;
   let startX = 0;
   let currentTranslate = 0;
   let prevTranslate = 0;
@@ -798,8 +835,8 @@ current = Math.min(Math.max(0, index), total - 1);
     cancelAnimationFrame(animFrame);
     isDragging = false;
     const movedBy = currentTranslate - prevTranslate;
-    if (movedBy < -50)     goTo(current + 1 >= TOTAL() ? 0 : current + 1);
-    else if (movedBy > 50) goTo(current - 1 < 0 ? TOTAL() - 1 : current - 1);
+    if (movedBy < -50)     goTo(current + 1); // loops
+    else if (movedBy > 50) goTo(current - 1); // loops
     else                   goTo(current);
     startAutoplay();
   }
@@ -817,14 +854,19 @@ current = Math.min(Math.max(0, index), total - 1);
   track.addEventListener("touchmove",  dragMove,  { passive: true });
   track.addEventListener("touchend",   dragEnd);
 
+  // ── Resize: restart autoplay based on new breakpoint ─────
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => goTo(current), 150);
+    resizeTimer = setTimeout(() => {
+      goTo(current);
+      startAutoplay(); // will only run if now sm/md
+    }, 150);
   });
 
+  // ── Init ──────────────────────────────────────────────────
   goTo(0, false);
-  startAutoplay();
+  startAutoplay(); // only fires if sm/md on load
 })();
 // ─── FULL MENU OVERLAY ───────────────────────────────────────
 (function () {

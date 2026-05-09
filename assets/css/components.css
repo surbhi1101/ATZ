@@ -398,7 +398,7 @@
   }
 
   .btn-story:hover {
-    @apply bg-[#262633] text-white;
+    @apply bg-[#262633] !text-white;
     border: 1px solid white;
   }
 
@@ -1136,7 +1136,7 @@ duration-200;
     border-radius: 100px;
   }
   .impact-btn:hover {
-    @apply bg-[#262626] text-white;
+    @apply bg-[#262626] !text-white;
   }
 
   /* STORIES SECTION COMPONENTS*/
@@ -1159,7 +1159,7 @@ duration-200;
   }
 
   .stories-view-btn:hover {
-    @apply bg-[#262633] text-white;
+    @apply bg-[#262633] !text-white;
   }
 
   .stories-card-img-wrap img {
@@ -1371,7 +1371,7 @@ py-[7px] xl:py-[10px]  px-[18px] uppercase font-light;
   }
 
   .btn-signup:hover {
-    @apply bg-white text-[#2C2C39];
+    @apply bg-white !text-[#2C2C39];
     border-color: white;
   }
 
